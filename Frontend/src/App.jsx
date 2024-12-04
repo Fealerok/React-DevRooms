@@ -21,8 +21,9 @@ function App() {
       <div className={styles.container}>
         <Routes>
           <Route path="/" element={<ForumPage />} />
-          <Route path="/auth" element={<LoginPage />} />
+          <Route path="/auth" element={<LoginPage isLoginForm={true} />} />
           <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route path="/register" element={<LoginPage isLoginForm={false} />} />
         </Routes>
       </div>
       

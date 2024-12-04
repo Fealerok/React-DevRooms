@@ -4,9 +4,8 @@ import styles from "./index.module.scss";
 import LoginForm from '../../components/LoginPage/LoginForm';
 import RegistrationForm from '../../components/LoginPage/RegistrationForm';
 
-const LoginPage = () => {
-  
-  const [isLoginForm, setIsLoginForm] = useState(true);
+const LoginPage = ({isLoginForm}) => {
+
 
   return (
     <div className={styles.loginPage}>
