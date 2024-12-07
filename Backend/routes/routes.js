@@ -21,7 +21,8 @@ router.post("/login-user", loginMiddleware, async (req, res) => {
     const login_res = req.login_res;
 
 
-    if (login_res == "Пароли не совпадают") return res.status(401).json({message: login_res});
+    console.log("login res: " + login_res)
+    if (login_res == "Неверный пароль") return res.status(401).json({message: login_res});
     else if (login_res == "Пользователя с таким логином не существует.") return res.status(401).json({message: login_res});
 
     const accessToken = JwtMethods.generateAccessToken(login_res);

@@ -196,7 +196,7 @@ class Database{
                 const isMatch = await bcrypt.compare(password, usersData[0].password);
 
                 if (!isMatch){
-                    return "Пароль не совпадает";
+                    return "Неверный пароль";
                 }
 
                 return {
@@ -234,9 +234,9 @@ class Database{
     }
 
     saveRefreshToken = async (refreshToken, loginData) => {
-
         try {
             const idUserData = await this.db.query(`SELECT id FROM Users WHERE nickname='${loginData.login}'`);
+
             const idUser = idUserData.rows[0].id;
 
 
