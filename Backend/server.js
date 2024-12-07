@@ -7,9 +7,11 @@ const cors = require("cors");
 const router = require("./routes/routes");
 require("dotenv").config();
 
+
 //Говорим серверу использовать JSON и CORS, подключаем роутер на начальный путь
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({extended: true}));
 app.use("/", router);
 
 

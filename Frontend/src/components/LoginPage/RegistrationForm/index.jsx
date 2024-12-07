@@ -19,7 +19,6 @@ const RegistrationForm = () => {
   const registerButtonHandle = async () => {
     try{
       
-      console.log("Запрос начинается");
       if (!checkEmptyValues([loginInput, passwordInput, emailInput])){
         const response = await fetch("http://localhost:3030/register-new-user", {
           method: "POST",
@@ -35,7 +34,14 @@ const RegistrationForm = () => {
         })
         .then(resp => resp.json())
         .then(r => {
-          navigator("/auth");
+
+          if (r.message == "Регистрация прошла успешно!"){
+            alert(r.message);
+            navigator("/auth");
+          }
+          else{
+            alert(r.message);
+          }
         });
       }
     }catch(e){

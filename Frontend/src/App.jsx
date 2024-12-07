@@ -1,17 +1,21 @@
 import styles from "./App.module.scss";
-import { Link } from "react-router-dom";
-import AuthContext from "./context/authContext";
-import { useContext, useEffect, useState } from "react";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { Routes, Route } from "react-router-dom";
 import ForumPage from "./pages/ForumPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./context/authContext";
+
 
 function App() {
 
-  const {isLogged, setIsLogged} = useContext(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   
   return (

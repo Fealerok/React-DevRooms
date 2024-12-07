@@ -1,16 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {Link} from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import {Link, useNavigate} from "react-router-dom";
 
 import styles from "./index.module.scss";
 import HeaderLoginPage from '../Header';
 import Input from '../../Input';
 
 import checkEmptyValues from "../buttonHandle";
+import {saveTokens} from "../../../localStorage";
+
+import { AuthContext } from '../../../context/authContext';
+import fetchData from '../../../fetchCheck';
+
 
 const LoginForm = () => {
 
   const [loginInput, setLoginInput] = useState(null);
   const [passwordInput, setPasswordInput] = useState(null);
+
+  const navigator = useNavigate();
+
+  const {user, setUser} = useContext(AuthContext);
 
   const loginButtonHandle = async () => {
     try {
@@ -25,10 +34,25 @@ const LoginForm = () => {
             password: passwordInput
           })
         });
+
+        if (response.ok){
+          const responseData = await response.json();
+
+          saveTokens(responseData.accessToken, responseData.refreshToken);
+          
+          setUser({
+            id: responseData.decoded.id,
+            login: responseData.decoded.login,
+            role: responseData.decoded.role,
+            isLogged: true
+          });
+
+          navigator("/");
+        }
         
       }
     } catch (error) {
-      
+      console.log(`Ошибка авторизации: ${error}`); 
     }
 
   }
@@ -45,7 +69,7 @@ const LoginForm = () => {
       </div>
 
       <div className={styles.bottom_container}>
-        <button onClick={() => checkEmptyValues([loginInput, passwordInput])}>Войти</button>
+        <button onClick={() => loginButtonHandle()}>Войти</button>
       </div>
 
     </div>

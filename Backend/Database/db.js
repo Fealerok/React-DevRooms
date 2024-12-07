@@ -104,6 +104,17 @@ class Database{
                 `
              );
 
+             //Таблица RefreshTokens
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS RefreshTokens(
+                     id SERIAL PRIMARY KEY,
+                     token text NOT NULL,
+                     id_user INTEGER NOT NULL
+                )
+                `
+             );
+
 
         } catch (e) {
             console.log(`Ошибка createTables: ${e}`);
@@ -176,19 +187,68 @@ class Database{
     //Авторизация пользователя
     loginUser = async(login, password) => {
         try {
-            let userData = await this.db.query(`SELECT id_usersdata FROM Users WHERE login='${login}'`);
-            let userDataRows = userData.rows;
+            let user = await this.db.query(`SELECT * FROM Users WHERE nickname='${login}'`);
+            let userRows = user.rows;
 
-            if (userDataRows.length != 0){
+            if (userRows.length != 0){
+                const usersData = (await this.db.query(`SELECT login, password FROM UsersData WHERE id=${userRows[0].id_usersdata}`)).rows;
                 
+                const isMatch = await bcrypt.compare(password, usersData[0].password);
+
+                if (!isMatch){
+                    return "Пароль не совпадает";
+                }
+
+                return {
+                    id: userRows[0].id,
+                    login: usersData[0].login,
+                    role: userRows[0].id_role == 2 ? "Участник" : "Администратор",
+                };
             }
+
 
             else{
                 return "Пользователя с таким логином не существует."
             }
 
         } catch (error) {
+            console.log(`Ошибка при авторизации в БД: ${error}`);
+        }
+    }
+
+
+    //Получение рефреш-токена из БД для проверки
+    getRefreshToken = async (id_user) => {
+        try {
+            const refreshTokenRes = (await this.db.query(`SELECT token from RefreshTokens WHERE id_user=${id_user}`)).rows;
+
             
+            if (refreshTokenRes.length == 0){
+                return "Токен по такому id не найден";
+            }
+
+            return refreshTokenRes[0].token;
+        } catch (error) {
+            console.log(`Ошибка получения рефреш-токена из БД: ${error}`);
+        }
+    }
+
+    saveRefreshToken = async (refreshToken, loginData) => {
+
+        try {
+            const idUserData = await this.db.query(`SELECT id FROM Users WHERE nickname='${loginData.login}'`);
+            const idUser = idUserData.rows[0].id;
+
+
+            const token = await this.db.query(`SELECT token from RefreshTokens WHERE id_user=${idUser}`);
+
+            if (token.rows.length != 0) {
+                return await this.db.query(`UPDATE RefreshTokens SET token='${refreshToken}' WHERE id_user=${idUser}`);
+            }
+
+            await this.db.query(`INSERT INTO RefreshTokens ("token", "id_user") VALUES ('${refreshToken}', ${idUser})`);
+        } catch (error) {
+            console.log(`Ошибка сохранения refresh-токена: ${error}`);
         }
     }
 }
