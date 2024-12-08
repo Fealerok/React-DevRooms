@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react'
 import styles from "./index.module.scss";
 
+import Widget from '../../components/ForumPage/Widget';
+import ForumPageContent from '../../components/ForumPage/ForumPageContent';
+
 const ForumPage = () => {
 
-  useEffect(() => {
-    
-  }, []);
 
   return (
-    <div>ForumPage</div>
+    <div className={styles.forumPage}>
+      <Widget />
+      <ForumPageContent />
+    </div>
   )
 }
 
