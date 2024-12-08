@@ -1,0 +1,18 @@
+.topicsHeader{
+    display: flex;
+    height: 10%;
+    width: 100%;
+    background-color: white;
+    border:2px solid rgb(206,206,206);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color: var(--background-purple);
+    align-items: center;
+    justify-content: center;
+    div{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 95%;
+    }
+}
