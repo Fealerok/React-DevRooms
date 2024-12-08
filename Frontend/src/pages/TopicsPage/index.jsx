@@ -9,13 +9,14 @@ function TopicsPage(){
         <div className={styles.topicsCard}>
 
          <TopicsHeader />   
-            <div>
+            <div className={styles.topicsContainer}>
                 <TopicsItem />
                 <TopicsItem />
                 <TopicsItem />
                 <TopicsItem />
                 <TopicsItem />
                 <TopicsItem />
+                <TopicsItem />    
             </div>
         </div>
     )

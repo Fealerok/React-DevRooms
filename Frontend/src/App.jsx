@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/authContext";
+import TopicsPage from "./pages/TopicsPage";
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
           <Route path="/auth" element={<LoginPage isLoginForm={true} />} />
           <Route path="/profile" element={<ProfilePage />}></Route>
           <Route path="/register" element={<LoginPage isLoginForm={false} />} />
+          <Route path="/topics" element={<TopicsPage />}></Route>
+          
         </Routes>
 
       </div>
