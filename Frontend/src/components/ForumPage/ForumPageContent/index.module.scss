@@ -1,0 +1,15 @@
+.forum_page_content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+
+    .categories{
+        display: flex;
+        flex-direction: column;
+
+        width: 70%;
+
+        gap: 40px;
+    }
+}

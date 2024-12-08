@@ -102,8 +102,20 @@ router.post("/check-tokens", (req, res) => {
     }
 });
 
-router.post("/get-user-nickname", (req, res) => {
-    const {accessToken} = req.body;
+
+router.get("/get-categories", async (req, res) => {
+    try{
+        const categories = await db.getCategories();
+
+        console.log(categories.length);
+        if (categories.length == 0) return res.status(501).json();
+
+        return res.status(200).json({categories});
+    }
+    catch(e){
+        console.log(`Ошибка получения категорий в роуте: ${e}`);
+        return res.status(501).json();
+    }
 });
 
 module.exports = router;

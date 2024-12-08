@@ -251,6 +251,17 @@ class Database{
             console.log(`Ошибка сохранения refresh-токена: ${error}`);
         }
     }
+
+    getCategories = async () => {
+        try {
+
+            const categories = (await this.db.query(`SELECT * FROM Categories`)).rows;
+
+            return categories;
+        } catch (error) {
+            console.log(`Ошибка получения категорий в БД: ${error}`);
+        }
+    }
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах
