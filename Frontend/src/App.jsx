@@ -29,8 +29,8 @@ function App() {
           <Route path="/profile" element={<ProfilePage />}></Route>
           <Route path="/register" element={<LoginPage isLoginForm={false} />} />
         </Routes>
+
       </div>
-      
       <Footer />
     </div>
   )

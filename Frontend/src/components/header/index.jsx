@@ -35,7 +35,7 @@ const Header = () => {
               <span>DR</span>
 
               <div className={styles.buttons}>
-                  <Link to="/" className={styles.link} style={linkStyles}>Форум</Link>
+                  <Link to="/" reloadDocument className={styles.link} style={linkStyles}>Форум</Link>
                   <Link to="/profile" className={styles.link} style={linkStyles}>Профиль</Link>
               </div>
             </div>

@@ -24,9 +24,6 @@ const ForumPageContent = () => {
     getCategories();
   }, []);
 
-  useEffect(() => {
-    if (categories) console.log(categories);
-  }, [categories])
 
   if (categories) {
     return (
@@ -36,6 +33,18 @@ const ForumPageContent = () => {
           {categories.map((cat, i) => (
               <Category key={i} header={cat.name} />
           ))}
+        </div>
+  
+        <Statistic />
+      </div>
+    )
+  }
+
+  else{
+    return (
+      <div className={styles.forum_page_content}>
+        <div className={styles.categories}>
+          Категорий нет
         </div>
   
         <Statistic />
