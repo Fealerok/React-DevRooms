@@ -262,6 +262,18 @@ class Database{
             console.log(`Ошибка получения категорий в БД: ${error}`);
         }
     }
+
+    getChapters = async (nameOfCategory) => {
+        try {
+            
+            const idCategory = (await this.db.query(`SELECT id from Categories WHERE name='${nameOfCategory}'`)).rows[0];
+
+            const chapters = (await this.db.query(`SELECT * FROM Chapters WHERE id_category=${idCategory.id}`)).rows;
+            return chapters;
+        } catch (error) {
+            console.log(`Ошибка получения разделов в бд: ${error}`);
+        }
+    }
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах

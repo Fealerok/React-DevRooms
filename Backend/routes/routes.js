@@ -107,7 +107,6 @@ router.get("/get-categories", async (req, res) => {
     try{
         const categories = await db.getCategories();
 
-        console.log(categories.length);
         if (categories.length == 0) return res.status(501).json();
 
         return res.status(200).json({categories});
@@ -115,6 +114,17 @@ router.get("/get-categories", async (req, res) => {
     catch(e){
         console.log(`Ошибка получения категорий в роуте: ${e}`);
         return res.status(501).json();
+    }
+});
+
+router.post("/get-chapters", async (req, res) => {
+    try {
+        const nameOfCategory = req.body.category_name;
+        const chapters = await db.getChapters(nameOfCategory);
+
+        if (chapters.length != 0) return res.status(200).json(chapters);
+    } catch (error) {
+        console.log(`Ошибка получения разделов в роуте: ${error}`);
     }
 });
 
