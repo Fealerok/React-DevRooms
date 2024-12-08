@@ -30,7 +30,6 @@ function App() {
           <Route path="/profile" element={<ProfilePage />}></Route>
           <Route path="/register" element={<LoginPage isLoginForm={false} />} />
           <Route path="/topics" element={<TopicsPage />}></Route>
-          
         </Routes>
 
       </div>
