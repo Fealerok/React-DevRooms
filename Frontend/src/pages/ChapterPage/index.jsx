@@ -1,14 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./index.module.scss";
-import TopicsHeader from '../../components/topicsHeader';
-import TopicsItem from '../../components/topicsItem';
+import { useParams } from 'react-router-dom';
+import ChapterPageItem from '../../components/ChapterPage/ChapterPageItem';
 
-import { useParams} from 'react-router-dom';
-import { useState, useEffect } from 'react';
-
-
-function TopicsPage(){
-
+const ChapterPage = () => {
     const {idChapter} = useParams();
 
     const [topicsInChapter, setTopicsInChapter] = useState([]);
@@ -36,26 +31,27 @@ function TopicsPage(){
     }, []);
 
     if (topicsInChapter.length !== 0){
-        return(
-          <div className={styles.topicsCard}>
-            <TopicsHeader title={nameOfChapter} /> 
-            {topicsInChapter.map((t, i) => (
-              <TopicsItem key={i} title={t.name} />
-            ))}
-          </div>
+      return(
+        <div className={styles.chapter_page}>
+          <header>{nameOfChapter}</header>
+          {topicsInChapter.map((t, i) => (
+            <ChapterPageItem key={i} title={t.name} />
+          ))}
+        </div>
+      )
+    }
 
-        )
-      }
-  
-      else{
-        return(
-          <div className={styles.topicsCard}>
-            <TopicsHeader title={nameOfChapter} /> 
-            Тем нет
-          </div>
-        )
-      }
+    else{
+      return(
+        <div className={styles.chapter_page}>
+          <header>{nameOfChapter}</header>
+          <div className={styles.empty_topics}></div>
+        </div>
+      )
+    }
+    
+
 
 }
 
-export default TopicsPage;
+export default ChapterPage

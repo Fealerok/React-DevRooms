@@ -274,6 +274,28 @@ class Database{
             console.log(`Ошибка получения разделов в бд: ${error}`);
         }
     }
+
+    getTopicsInChapter = async(idChapter) => {
+        try {
+            const topics = (await this.db.query(`SELECT * FROM Topics WHERE id_chapter=${idChapter}`)).rows;
+
+            return topics;
+        } catch (error) {
+            console.log(`Ошибка получения тем в разделе в БД: ${error}`);
+            
+        }
+    }
+
+    getNameOfChapter = async (idChapter) => {
+        try {
+            const nameOfChapter = (await this.db.query(`SELECT name FROM Chapters WHERE id=${idChapter}`)).rows;
+
+            return nameOfChapter[0];
+        } catch (error) {
+            console.log(`Ошибка получения названия раздела в БД: ${error}`);
+            
+        }
+    }
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах

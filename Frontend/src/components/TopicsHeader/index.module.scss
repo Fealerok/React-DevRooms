@@ -9,6 +9,12 @@
     color: var(--background-purple);
     align-items: center;
     justify-content: center;
+
+    h3{
+        font-weight: normal;
+        font-size: 24px;
+    }
+
     div{
         display: flex;
         align-items: center;
