@@ -128,4 +128,20 @@ router.post("/get-chapters", async (req, res) => {
     }
 });
 
+router.post("/get-topics-in-chapter", async (req, res) => {
+    try {
+        const idChapter = req.body.chapterId;
+    
+        const topics = await db.getTopicsInChapter(idChapter);
+        const nameOfChapter = await db.getNameOfChapter(idChapter);
+
+        
+        const resp = {topics, nameOfChapter}
+        if (topics.length != 0 || nameOfChapter) return res.status(200).json(resp);
+        else return res.status(501).json();
+    } catch (error) {
+        console.log(`Ошибка получения тем в разделе в роуте: ${error}`);
+    }
+});
+
 module.exports = router;

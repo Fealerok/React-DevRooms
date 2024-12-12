@@ -1,11 +1,11 @@
 import styles from "./index.module.scss";
 
 
-function TopicsHeader(){
+function TopicsHeader({title}){
     return(
         <header className={styles.topicsHeader}>
             <div>
-                <h3>Раздел 2:</h3>  
+                <h3>{title}</h3>  
             </div>
         </header>
     ) 

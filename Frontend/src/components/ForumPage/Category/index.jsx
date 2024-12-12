@@ -6,6 +6,7 @@ import Chapter from '../Chapter';
 const Category = ({header}) => {
 
   const [chapters, setChapters] = useState(null);
+  
 
   const getChapters = async () => {
     const response = await fetch("http://localhost:3030/get-chapters", {
@@ -26,6 +27,7 @@ const Category = ({header}) => {
     getChapters();
   }, []);
 
+
   if (chapters){
     return (
       <div className={styles.category}>
@@ -33,9 +35,12 @@ const Category = ({header}) => {
           <span>{header}</span>
         </div>
         <div className={styles.category_content}>
+
           {chapters.map((c, i) => (
-            <Chapter key={i} title={c.name} />
+            <Chapter key={i} title={c.name} chapterId={c.id} />
           ))}
+
+
         </div>
       </div>
     )
