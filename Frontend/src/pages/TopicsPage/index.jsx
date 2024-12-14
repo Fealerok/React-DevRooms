@@ -35,12 +35,13 @@ function TopicsPage(){
       
     }, []);
 
+
     if (topicsInChapter.length !== 0){
         return(
           <div className={styles.topicsCard}>
             <TopicsHeader title={nameOfChapter} /> 
             {topicsInChapter.map((t, i) => (
-              <TopicsItem key={i} title={t.name} />
+              <TopicsItem key={i} title={t.name} topicId={t.id} />
             ))}
           </div>
 
@@ -51,7 +52,6 @@ function TopicsPage(){
         return(
           <div className={styles.topicsCard}>
             <TopicsHeader title={nameOfChapter} /> 
-            Тем нет
           </div>
         )
       }

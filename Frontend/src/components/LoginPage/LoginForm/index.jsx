@@ -64,8 +64,8 @@ const LoginForm = () => {
       <HeaderLoginPage title={"Авторизация"} />
 
       <div className={styles.inputForm}>
-        <Input title={"Введите логин"} typeInput={"text"} getInputValue={setLoginInput} />
-        <Input title={"Введите пароль"} typeInput={"password"} getInputValue={setPasswordInput}/>
+        <Input title={"Введите логин"} typeInput={"text"} getInputValue={setLoginInput} isMessage={false} />
+        <Input title={"Введите пароль"} typeInput={"password"} getInputValue={setPasswordInput} isMessage={false}/>
       </div>
 
       <div className={styles.bottom_container}>

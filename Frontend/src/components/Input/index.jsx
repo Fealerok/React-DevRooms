@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./index.module.scss";
 
-const Input = ({title, typeInput, getInputValue}) => {
+const Input = ({title, typeInput, getInputValue, isMessage}) => {
   return (
     <div className={styles.inputForm}>
         {
@@ -12,6 +12,7 @@ const Input = ({title, typeInput, getInputValue}) => {
                 onChange={(e) => {
                   getInputValue(e.target.value)
                 }} 
+                className={isMessage ? styles.message : ""}
                 />) : (
               <input 
                 type={typeInput} 
@@ -19,9 +20,10 @@ const Input = ({title, typeInput, getInputValue}) => {
                 onChange={(e) => {
                   getInputValue(e.target.value)
                 }}
+                className={isMessage ? styles.message : ""}
               />)
         }
-        <label htmlFor="">{title}</label>
+        <label htmlFor="" >{title}</label>
     </div>
   )
 }
