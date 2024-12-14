@@ -57,9 +57,9 @@ const RegistrationForm = () => {
       <HeaderLoginPage title={"Регистрация"} />
 
       <div className={styles.inputForm}>
-        <Input title={"Введите логин"} typeInput={"text"} getInputValue={setLoginInput}/>
-        <Input title={"Введите почту"} typeInput={"email"} getInputValue={setEmailInput}/>
-        <Input title={"Введите пароль"} typeInput={"password"} getInputValue={setPasswordInput}/>
+        <Input title={"Введите логин"} typeInput={"text"} getInputValue={setLoginInput} isMessage={false}/>
+        <Input title={"Введите почту"} typeInput={"email"} getInputValue={setEmailInput} isMessage={false}/>
+        <Input title={"Введите пароль"} typeInput={"password"} getInputValue={setPasswordInput} isMessage={false}/>
       </div>
 
       <div className={styles.bottom_container}>

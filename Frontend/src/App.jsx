@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/authContext";
 import TopicsPage from "./pages/TopicsPage";
-import ChapterPage from "./pages/ChapterPage";
+import TopicAnswersPage from "./pages/TopicAnswersPage";
 
 
 function App() {
@@ -32,6 +32,9 @@ function App() {
           <Route path="/register" element={<LoginPage isLoginForm={false} />} />
           <Route path="/topics" element={<TopicsPage />}></Route>
           <Route path="/chapter/:idChapter" element={<TopicsPage />}></Route>
+          <Route path="/topic/:idTopic" element={<TopicAnswersPage />}></Route>
+
+        
         </Routes>
 
       </div>

@@ -49,4 +49,9 @@
         left: -5px;
         color: black;
     }
+
+    & > .message:focus + label, 
+    & > .message:not(:placeholder-shown) + label{
+        display: none;
+    }
 }
