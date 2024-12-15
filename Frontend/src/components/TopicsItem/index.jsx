@@ -1,19 +1,13 @@
+import { Link } from "react-router-dom";
 import styles from "./index.module.scss";
 
-function TopicsItem(){
+function TopicsItem({title, topicId}){
     return(
         <div className={styles.topicsItem}>
-            <div>
-                <div>
-                    <p>Концепт библиотеки для работы  шукщпзм узшщкзущш ктозщшпкушпщ тш тушш тщшупктшзщут кпшу тщшз тщ птущш птшу птьупть Концепт Концепт библиотеки для работы с реестром Windows щшущшищушмщшшщук5щлушш шукщпзм узшщкзущш ктозщшпкушпщ тш тушш тщшупктшзщут кпшу тщшз тщ птущш птшу птьупть КонцептКонцепт библиотеки для работы с реестром Windows щшущшищушмщшшщук5щлушш шукщпзм узшщкзущш ктозщшпкушпщ тш тушш тщшупктшзщут кпшу тщшз тщ птущш птшу птьупть Концепт </p>
-                </div>
-
-                <div>
-                    <p>Автор Fealer</p>
-                    <span>21.03.2003</span>
-                </div>
-
-            </div>
+                    <Link to={`/topic/${topicId}`}>
+                        <span>{title}</span>
+                        <span>Автор Fealer</span>
+                    </Link>
             
         </div>
     )

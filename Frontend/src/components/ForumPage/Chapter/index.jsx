@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import styles from "./index.module.scss"
 
-const Chapter = ({title}) => {
+const Chapter = ({title, chapterId}) => {
   return (
-    <div className={styles.chapter}>{title}</div>
+    <Link to={`/chapter/${chapterId}`} className={styles.chapter} > {title} </Link>
   )
 }
 

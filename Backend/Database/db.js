@@ -274,6 +274,68 @@ class Database{
             console.log(`Ошибка получения разделов в бд: ${error}`);
         }
     }
+
+    getTopicsInChapter = async(idChapter) => {
+        try {
+            const topics = (await this.db.query(`SELECT * FROM Topics WHERE id_chapter=${idChapter}`)).rows;
+
+            return topics;
+        } catch (error) {
+            console.log(`Ошибка получения тем в разделе в БД: ${error}`);
+            
+        }
+    }
+
+    getNameOfChapter = async (idChapter) => {
+        try {
+            const nameOfChapter = (await this.db.query(`SELECT name FROM Chapters WHERE id=${idChapter}`)).rows;
+
+            return nameOfChapter[0];
+        } catch (error) {
+            console.log(`Ошибка получения названия раздела в БД: ${error}`);
+            
+        }
+    }
+
+    getTitleTopic = async (id_topic) => {
+        try {
+            const titleRows = (await this.db.query(`SELECT name FROM Topics WHERE id=${id_topic}`)).rows;
+            return titleRows[0].name;
+        } catch (error) {
+            console.log(`Ошибка получения названия темы в бд: ${error}`);
+            
+        }
+    }
+
+    getNameOfCreator = async (id_topic) => {
+        try {
+            const nameRows = (await this.db.query(`SELECT nickname FROM Users WHERE id=(SELECT id_usercreator from Topics WHERE id=${id_topic})`)).rows;
+            return nameRows[0].nickname;
+        } catch (error) {
+            console.log(`Ошибка получения имени создателя в бд: ${error}`);
+            
+        }
+    }
+
+    getTopicAnswers = async(id_topic) => {
+        try {
+            const answersRows = (await this.db.query(`SELECT * FROM Answers WHERE id_topic=${id_topic}`)).rows;
+            return answersRows;
+        } catch (error) {
+            console.log(`Ошибка получения ответов темы в бд: ${error}`);
+            
+        }
+    }
+    
+    addNewAnswer = async(idCreator, answer_text, idTopic) => {
+        try {
+            const nickname = (await this.db.query(`SELECT nickname FROM Users WHERE id=${idCreator}`)).rows[0].nickname;
+            this.db.query(`INSERT INTO Answers ("text_answer", "id_topic", "name_creator") VALUES ('${answer_text}', ${idTopic}, '${nickname}')`)
+        } catch (error) {
+            console.log(`Ошибка добавления ответа в бд: ${error}`);
+            
+        }
+    }
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах
