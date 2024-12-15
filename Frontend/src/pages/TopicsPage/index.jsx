@@ -15,8 +15,7 @@ function TopicsPage(){
                 <TopicsItem />
                 <TopicsItem />
                 <TopicsItem />
-                <TopicsItem />
-                <TopicsItem />    
+                <TopicsItem />          
             </div>
         </div>
     )
