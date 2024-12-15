@@ -1,141 +1,57 @@
 import React from 'react'
 import styles from "./index.module.scss";
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+import avatar_image from "../../assets/images/ProfilePage/avatar.jpg";
+
+import HeaderLoginPage from '../../components/LoginPage/Header';
+import SkillItem from '../../components/ProfilePage/SkillItem';
+
+import c_sharp from "../../assets/images/ProfilePage/skills_logo/c_sharp.png";
+
 
 function ProfilePage() {
     return(
         <div className={styles.profilePage}>
 
-            <div className={styles.profileCard}>
+            <HeaderLoginPage title={"Fealer"} />
 
-                <header className={styles.profileCardHeader}>
-                    <span>Fotinoki23</span>
-                </header>
-                
-                <div className={styles.userInfo}>
+            <div className={styles.content}>
 
-                    <div className={styles.avatarNickname}>
-
-                        <div className={styles.userAvatar}>
-                            <img className={styles.img} src="https://99px.ru/sstorage/86/2023/09/mid_42079_970304.jpg" alt="" /> 
-                        </div>
-                        
-                        <p>Bosko</p>
-
+                <div className={styles.left_content}>
+                    <div className={styles.image_container}>
+                        <img src={avatar_image} alt="" />
                     </div>
-
-                    <div className={styles.userStat}>
-                        <div className={styles.userSkils}>
-                            <div className={styles.skillBox}>
-                                
-                                    <span>CSS</span>
-                                    <div className={styles.wrapperImg}>
-                                        <img className={styles.img} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqks6bkM4tTJy69jDFqLrsOj9gRphGaB8Deg&s" alt="" />
-                                    </div>
-                                    
-                                    <div className={styles.progressBar}>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                            
-                            </div>
-                            <div className={styles.skillBox}>
-                                
-                                    <span>CSS</span>
-                                    <div className={styles.wrapperImg}>
-                                        <img className={styles.img} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqks6bkM4tTJy69jDFqLrsOj9gRphGaB8Deg&s" alt="" />
-                                    </div>
-                                    
-                                    <div className={styles.progressBar}>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                            
-                            </div>
-                            <div className={styles.skillBox}>
-                                
-                                    <span>CSS</span>
-                                    <div className={styles.wrapperImg}>
-                                        <img className={styles.img} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqks6bkM4tTJy69jDFqLrsOj9gRphGaB8Deg&s" alt="" />
-                                    </div>
-                                    
-                                    <div className={styles.progressBar}>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                            
-                            </div>
-                            <div className={styles.skillBox}>
-                                
-                                    <span>CSS</span>
-                                    <div className={styles.wrapperImg}>
-                                        <img className={styles.img} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqks6bkM4tTJy69jDFqLrsOj9gRphGaB8Deg&s" alt="" />
-                                    </div>
-                                    
-                                    <div className={styles.progressBar}>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                            
-                            </div>
-                            <div className={styles.skillBox}>
-                                
-                                    <span>CSS</span>
-                                    <div className={styles.wrapperImg}>
-                                        <img className={styles.img} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqks6bkM4tTJy69jDFqLrsOj9gRphGaB8Deg&s" alt="" />
-                                    </div>
-                                    
-                                    <div className={styles.progressBar}>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                            
-                            </div>
-                            <div className={styles.skillBox}>
-                                
-                                <span>CSS</span>
-                                <div className={styles.wrapperImg}>
-                                    <img className={styles.img} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqks6bkM4tTJy69jDFqLrsOj9gRphGaB8Deg&s" alt="" />
-                                </div>
-                                    
-                                <div className={styles.progressBar}>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            
-                            </div>
-                        </div>  
-
-                        <div className={styles.statisticsBox}>
-                            <div>
-                                <span>Сообщений</span>
-                                <span>0</span>
-                            </div>
-                            <div>
-                                <span>Тем Создано</span>
-                                <span>0</span>
-                            </div>
-                            <div>
-                                <span>Реакций</span>
-                                <span>0</span>
-                            </div>
-                        </div>
-
-                    </div>
+                    <span>Пользователь</span> {/* РОЛЬ ЧЕЛОВЕКА */}
                     
                 </div>
-                
 
-            </div>
+                <div className={styles.right_content}>
 
-            <div className={styles.profileCard}>
-            
+                    <div className={styles.skills}>
+                        <SkillItem image={c_sharp} />
+                        <SkillItem image={c_sharp} />
+                        <SkillItem image={c_sharp} />       
+                        <SkillItem image={c_sharp} />  
+                        <SkillItem image={c_sharp} />       
+                        <SkillItem image={c_sharp} />     
+                    </div>
+                    <div className={styles.profile_statistic}>
+                        <div className={styles.statistic_block}>
+                            <span>0</span>
+                            <span>Сообщений</span>
+                        </div>
+
+                        <div className={styles.statistic_block}>
+                            <span>0</span>
+                            <span>Тем создано</span>
+                        </div>
+
+                        <div className={styles.statistic_block}>
+                            <span>0</span>
+                            <span>Реакций</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>

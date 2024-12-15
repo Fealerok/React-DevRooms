@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ForumPage />} />
           <Route path="/auth" element={<LoginPage isLoginForm={true} />} />
-          <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route path="/profile/:nicknameProfile" element={<ProfilePage />}></Route>
           <Route path="/register" element={<LoginPage isLoginForm={false} />} />
           <Route path="/topics" element={<TopicsPage />}></Route>
           <Route path="/chapter/:idChapter" element={<TopicsPage />}></Route>
