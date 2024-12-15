@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 
 
 function TopicsPage(){
-
     const {idChapter} = useParams();
 
     const [topicsInChapter, setTopicsInChapter] = useState([]);
@@ -55,7 +54,6 @@ function TopicsPage(){
           </div>
         )
       }
-
 }
 
 export default TopicsPage;
