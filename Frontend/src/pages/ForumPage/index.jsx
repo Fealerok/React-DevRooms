@@ -11,6 +11,7 @@ const ForumPage = () => {
     <div className={styles.forumPage}>
       <Widget />
       <ForumPageContent />
+      
     </div>
   )
 }

@@ -26,6 +26,8 @@ function TopicsPage(){
           
           setTopicsInChapter(r.topics);
           setNameOfChapter(r.nameOfChapter.name);
+
+          console.log(r.topics);
         });
     }
 
@@ -40,7 +42,7 @@ function TopicsPage(){
           <div className={styles.topicsCard}>
             <TopicsHeader title={nameOfChapter} /> 
             {topicsInChapter.map((t, i) => (
-              <TopicsItem key={i} title={t.name} topicId={t.id} />
+              <TopicsItem key={i} title={t.name} topicId={t.id} nicknameCreator={t.nickname} />
             ))}
           </div>
 

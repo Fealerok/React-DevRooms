@@ -36,7 +36,11 @@ const Header = () => {
 
               <div className={styles.buttons}>
                   <Link to="/" reloadDocument className={styles.link} style={linkStyles}>Форум</Link>
-                  <Link to="/profile" className={styles.link} style={linkStyles}>Профиль</Link>
+
+                  {!user?.login ? 
+                    <Link to={"/auth"} className={styles.link} style={linkStyles}>Профиль</Link> : 
+                    <Link to={`/profile/${user.login}`} className={styles.link} style={linkStyles}>Профиль</Link>
+                  }
               </div>
             </div>
 
@@ -55,7 +59,7 @@ const Header = () => {
           ) : (
             <div className={styles.auth_links}>
               <div className={styles.container}>
-                <Link to="/profile" className={styles.login} style={linkStyles}>{user.login}</Link>
+                <Link to={`/profile/${user.login}`} className={styles.login} style={linkStyles}>{user.login}</Link>
               </div>
           </div>
           )}

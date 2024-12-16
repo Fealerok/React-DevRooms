@@ -1,0 +1,26 @@
+.user_topics{
+    margin-top: 60px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #CECECE;
+    border-radius: 20px;
+
+    .header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        font-size: 24px;
+        width: 100%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        background-color: var(--background-purple);
+        color: white;
+    }
+
+    .topics{
+        width: 100%;
+    }
+
+    margin-bottom: 60px;
+}
