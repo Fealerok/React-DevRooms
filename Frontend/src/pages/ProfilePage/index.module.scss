@@ -1,12 +1,21 @@
 .profilePage{
     width: 100%;
-    background-color: white;
     height: 100%;
-    border-radius: 20px;
-    border: 1px solid #CECECE;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .profile_container{
+        width: 100%;
+        background-color: white;
+        border-radius: 20px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        border: 1px solid #CECECE;
+    }
 
     .content{
         display: flex;

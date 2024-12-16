@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from "./index.module.scss";
 
-const SkillItem = ({image}) => {
+const SkillItem = ({image, title}) => {
   return (
     <div className={styles.skill_item}>
-        <span>C#</span>
+        <span>{title}</span>
         <div className={styles.image_container}>
             <img src={image} alt="" />
         </div>

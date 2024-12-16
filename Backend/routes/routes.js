@@ -136,7 +136,9 @@ router.post("/get-topics-in-chapter", async (req, res) => {
         const nameOfChapter = await db.getNameOfChapter(idChapter);
 
         
-        const resp = {topics, nameOfChapter}
+        const resp = {topics, nameOfChapter};
+
+        console.log(topics);
         if (topics.length != 0 || nameOfChapter) return res.status(200).json(resp);
         else return res.status(501).json();
     } catch (error) {
@@ -180,6 +182,21 @@ router.post("/add-new-answer", async (req, res) => {
     } catch (error) {
         console.log(`Ошибка добавления ответа в роуте: ${error}`);
         return res.status(500).json();
+        
+    }
+});
+
+router.post("/get-user-topics", async (req, res) => {
+    try {
+        const login = req.body.login;
+
+        const topics = await db.getUserTopics(login);
+
+        if (topics?.length != 0) return res.status(200).json(topics);
+        else return res.status(500).json();
+    } catch (error) {
+        console.log(`Ошибка получения тем пользователя в роуте: ${error}`);
+        return res.status(501).json();
         
     }
 });

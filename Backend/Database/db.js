@@ -277,7 +277,17 @@ class Database{
 
     getTopicsInChapter = async(idChapter) => {
         try {
-            const topics = (await this.db.query(`SELECT * FROM Topics WHERE id_chapter=${idChapter}`)).rows;
+            const topics = (await this.db.query(`
+                SELECT 
+                    Topics.id, 
+                    Topics.name, 
+                    Topics.id_chapter, 
+                    Users.nickname 
+                FROM 
+                    Topics 
+                JOIN 
+                    Users ON Topics.id_usercreator = Users.id 
+                WHERE id_chapter=${idChapter}`)).rows;
 
             return topics;
         } catch (error) {
@@ -333,6 +343,29 @@ class Database{
             this.db.query(`INSERT INTO Answers ("text_answer", "id_topic", "name_creator") VALUES ('${answer_text}', ${idTopic}, '${nickname}')`)
         } catch (error) {
             console.log(`Ошибка добавления ответа в бд: ${error}`);
+            
+        }
+    }
+
+    getUserTopics = async (login) => {
+        try {
+            console.log(login);
+            const idUser = (await this.db.query(`SELECT id FROM Users WHERE nickname = '${login}'`)).rows[0].id;
+            const topics = (await this.db.query(`
+                SELECT 
+                    Topics.id, 
+                    Topics.name, 
+                    Topics.id_chapter, 
+                    Users.nickname
+                FROM 
+                    Topics 
+                JOIN Users ON Users.id = Topics.id_usercreator
+                WHERE Topics.id_usercreator = ${idUser}
+                `)).rows;
+
+            return topics;
+        } catch (error) {
+            console.log(`Ошибка получения тем юзера в бд: ${error}`);
             
         }
     }
