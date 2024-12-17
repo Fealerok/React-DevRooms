@@ -2,6 +2,7 @@ import React from 'react'
 import styles from "./index.module.scss";
 import TopicsHeader from '../../components/topicsHeader';
 import TopicsItem from '../../components/topicsItem';
+import CreateWindow from '../../components/CreateWindow';
 
 import { useParams} from 'react-router-dom';
 import { useState, useEffect } from 'react';

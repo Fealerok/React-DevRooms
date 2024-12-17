@@ -3,11 +3,11 @@ import styles from "./index.module.scss"
 
 import PopularContent from '../../ForumPageWidget/PopularContent';
 
-const Widget = () => {
+const Widget = ({isBlur}) => {
 
     const [isPopular, setIsPopular] = useState(true);
   return (
-    <div className={styles.widget}>
+    <div className={`${styles.widget} ${isBlur ? styles.blur : ""}`}>
         <div className={styles.widget_header}>
             <button 
                 className={`${isPopular ? styles.active : ""}`}

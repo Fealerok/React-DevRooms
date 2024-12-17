@@ -12,3 +12,9 @@
     --font-press-start-400: "PressStart400";
     --background-purple: #6B5798;
 }
+
+.blur{
+    transition: 0.5s;
+    filter: blur(5px);
+    pointer-events: none;
+}

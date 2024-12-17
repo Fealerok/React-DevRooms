@@ -201,4 +201,17 @@ router.post("/get-user-topics", async (req, res) => {
     }
 });
 
+router.post("/add-new-category", async (req, res) => {
+    try {
+        const categoryName = req.body.categoryName;
+
+        await db.addNewCategory(categoryName);
+
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка добавления категории в роуте: ${error}`);
+        
+    }
+});
+
 module.exports = router;

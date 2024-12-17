@@ -369,6 +369,14 @@ class Database{
             
         }
     }
+
+    addNewCategory = async (categoryName) => {
+        try {
+            await this.db.query(`INSERT INTO Categories ("name") VALUES ('${categoryName}')`);
+        } catch (error) {
+            console.log(`ошибка добавления категории в бд: ${categoryName}`);
+        }
+    }
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах

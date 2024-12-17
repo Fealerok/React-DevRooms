@@ -19,6 +19,13 @@ function ProfilePage() {
 
     const {user} = useContext(AuthContext);
 
+    const getProfileStatistic = () => {
+        const response = fetch("http://localhost:3030/get-profile-statistic", {
+             
+        });
+    }
+
+
     return(
         <div className={styles.profilePage}>
 
