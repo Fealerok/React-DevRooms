@@ -47,7 +47,7 @@
         transform: translateY(-100%);
         font-size: 22px;
         left: -5px;
-        color: black;
+        color: var(--background-purple);
     }
 
     & > .message:focus + label, 

@@ -223,7 +223,22 @@ router.post("/add-new-chapter", async (req, res) => {
         await db.addNewChapter(categoryName, chapterName);
        return res.status(200).json();
     } catch (error) {
+        console.log(`Ошибка добавления раздела в роуте: ${error}`);
         
+    }
+});
+
+router.post("/add-new-topic", async (req, res) => {
+    try {
+        const idChapter = req.body.idChapter;
+        const topicName = req.body.topicName;
+        const idUser = req.body.idUser;
+
+        await db.addNewTopic(idChapter, topicName, idUser);
+
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка добавления темы в роуте: ${error}`);
         
     }
 });
