@@ -377,6 +377,25 @@ class Database{
             console.log(`ошибка добавления категории в бд: ${categoryName}`);
         }
     }
+
+    addNewChapter = async (categoryName, chapterName) => {
+        try {
+            
+            const idCategory = (await this.db.query(`SELECT id from categories where name='${categoryName}'`)).rows[0].id;
+           await this.db.query(`INSERT INTO Chapters ("name", "id_category") VALUES ('${chapterName}', ${idCategory})`);
+        } catch (error) {
+            console.log(`ошибка добавления раздела в бд: ${error}`);
+        }
+    }
+
+    addNewTopic = async (idChapter, topicName, idUser) => {
+        try {
+            console.log(idUser);
+           await this.db.query(`INSERT INTO Topics ("name", "id_chapter", "id_usercreator") VALUES ('${topicName}', ${idChapter}, ${idUser})`);
+        } catch (error) {
+            console.log(`ошибка добавления раздела в бд: ${error}`);
+        }
+    }
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах

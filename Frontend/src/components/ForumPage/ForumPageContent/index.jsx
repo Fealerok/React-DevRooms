@@ -5,7 +5,7 @@ import Category from '../Category';
 import Statistic from '../Statistic';
 import CreateWindow from '../../CreateWindow';
 
-const ForumPageContent = ({setBlur}) => {
+const ForumPageContent = () => {
 
   const [categories, setCategories] = useState(null);
   const [isCreateWindow, setIsCreateWindow] = useState(false);
@@ -43,7 +43,6 @@ const ForumPageContent = ({setBlur}) => {
 
   const buttonClickHandle = () => {
     setIsCreateWindow(true);
-    setBlur(true);
     console.log(isCreateWindow);
   }
 
@@ -52,7 +51,7 @@ const ForumPageContent = ({setBlur}) => {
     return (
       <>
 
-          <div className={`${styles.forum_page_content} ${isCreateWindow ? styles.blur : ""}`}>
+          <div className={styles.forum_page_content}>
             <div className={styles.categories}>
       
               <div className={styles.container}>
@@ -69,7 +68,7 @@ const ForumPageContent = ({setBlur}) => {
             
           </div>
 
-          <CreateWindow title={"категории"} display={isCreateWindow} setDisplay={setIsCreateWindow} setBlur={setBlur} addNew={addNewCategory}/>
+          <CreateWindow title={"категории"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewCategory}/>
       </>
     )
   }

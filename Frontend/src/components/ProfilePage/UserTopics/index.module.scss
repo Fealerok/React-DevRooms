@@ -5,6 +5,8 @@
     border: 1px solid #CECECE;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
 
     .header{
         display: flex;
@@ -21,6 +23,8 @@
 
     .topics{
         width: 100%;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
     }
 
     margin-bottom: 60px;

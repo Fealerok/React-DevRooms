@@ -1,11 +1,15 @@
 import React from 'react'
 import styles from "./index.module.scss"
 
+import avatar from "../../../assets/images/ProfilePage/avatar.jpg";
+
 const AnswerItem = ({answer_text, nicknameOfCreator}) => {
   return (
     <div className={styles.answer_item}>
         <div className={styles.header}>
-            <div></div>
+            <div>
+              <img src={avatar} alt="" />
+            </div>
             <span>{nicknameOfCreator}</span>
         </div>
 
