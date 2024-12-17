@@ -13,5 +13,34 @@
         width: 70%;
 
         gap: 40px;
+
+        .container{
+            display: flex;
+        flex-direction: column;
+
+        width: 100%;
+
+        gap: 40px;
+        }
+
+        & > button{
+            width: 430px;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            cursor: pointer;
+            color: white;
+            background-color: var(--background-purple);
+
+            font-size: 24px;
+            border-radius: 12px;
+            border: none;
+            margin: 0 auto;
+        }
     }
+}
+
+.blur{
+    transition: 0.5s;
+    filter: blur(5px);
+    pointer-events: none;
 }

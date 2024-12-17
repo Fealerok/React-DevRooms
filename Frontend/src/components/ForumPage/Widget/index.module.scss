@@ -81,3 +81,9 @@
         width: 100%;
     }
 }
+
+.blur{
+    filter: blur(5px);
+    transition: 0.5s;
+    pointer-events: none;
+}
