@@ -3,16 +3,15 @@ import styles from "./index.module.scss";
 
 import Input from '../Input';
 
-const CreateWindow = ({title, display, setDisplay, setBlur, addNew}) => {
+const CreateWindow = ({title, display, setDisplay, addNew}) => {
 
 
   const [inputValue, setInputValue] = useState("");
 
 
   const buttonClickHandle = () => {
-    setDisplay(!display);
-    setBlur(false);
     addNew(inputValue);
+    setDisplay(!display);
   };
 
   return (
@@ -26,7 +25,6 @@ const CreateWindow = ({title, display, setDisplay, setBlur, addNew}) => {
                 <button onClick={buttonClickHandle}>Добавить</button>
                 <button onClick={() => {
                   setDisplay(!display);
-                  setBlur(false);
                   }}>Отменить</button>
             </div>
         </div>

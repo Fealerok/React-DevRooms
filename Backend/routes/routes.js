@@ -123,6 +123,7 @@ router.post("/get-chapters", async (req, res) => {
         const chapters = await db.getChapters(nameOfCategory);
 
         if (chapters.length != 0) return res.status(200).json(chapters);
+        else return res.status(500).json();
     } catch (error) {
         console.log(`Ошибка получения разделов в роуте: ${error}`);
     }
@@ -210,6 +211,19 @@ router.post("/add-new-category", async (req, res) => {
         return res.status(200).json();
     } catch (error) {
         console.log(`Ошибка добавления категории в роуте: ${error}`);
+        
+    }
+});
+
+router.post("/add-new-chapter", async (req, res) => {
+    try {
+        const chapterName = req.body.chapterName;
+        const categoryName = req.body.categoryName;
+
+        await db.addNewChapter(categoryName, chapterName);
+       return res.status(200).json();
+    } catch (error) {
+        
         
     }
 });
