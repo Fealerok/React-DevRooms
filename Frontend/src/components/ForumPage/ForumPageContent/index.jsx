@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from "./index.module.scss";
 
 import Category from '../Category';
 import Statistic from '../Statistic';
 import CreateWindow from '../../CreateWindow';
+import { AuthContext } from '../../../context/authContext';
 
 const ForumPageContent = () => {
 
   const [categories, setCategories] = useState(null);
   const [isCreateWindow, setIsCreateWindow] = useState(false);
+
+  const {user} = useContext(AuthContext);
 
   const getCategories = () => {
     const response = fetch("http://localhost:3030/get-categories", {
@@ -60,7 +63,7 @@ const ForumPageContent = () => {
                 ))}
               </div>
 
-              <button onClick={buttonClickHandle}>Новая категория</button>
+              <button onClick={buttonClickHandle} className={user?.role == "Администратор" ? "" : "hide" }>Новая категория</button>
             </div>
       
             <Statistic />

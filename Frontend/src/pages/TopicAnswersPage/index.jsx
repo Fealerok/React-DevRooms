@@ -70,8 +70,7 @@ const TopicAnswersPage = () => {
               <AnswerItem nicknameOfCreator={answer.name_creator} answer_text={answer.text_answer} key={i} />
             ))}
         </div>
-
-        <div className={styles.input_container}>
+        <div className={`${styles.input_container} ${user?.isLogged ? "" : "hide" }`} >
           <Input title={"Введите сообщение:"} type="text" getInputValue={setInputValue} isMessage={true}></Input>
           <button onClick={() => addNewAnswer()}>
             <img src={arrow} alt="" />
