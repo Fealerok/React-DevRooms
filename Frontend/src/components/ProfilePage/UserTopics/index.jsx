@@ -12,8 +12,8 @@ const UserTopics = () => {
 
   const {user} = useContext(AuthContext);
 
-  const getUserTopics = () => {
-    const response = fetch("http://localhost:3030/get-user-topics", {
+  const getUserTopics = async () => {
+    const response = await fetch("http://localhost:3030/get-user-topics", {
       method: "POST",
       headers:{
         "Content-Type": "application/json"
@@ -22,9 +22,11 @@ const UserTopics = () => {
         login: user.login
       })
     })
-      .then(resp => resp.json())
-      .then(r => setUserTopics(r));
+
+    if (response.ok) console.log(response.json().then(r => setUserTopics(r)))
   }
+
+
   
   useEffect(() => {
     if (user?.login) getUserTopics();

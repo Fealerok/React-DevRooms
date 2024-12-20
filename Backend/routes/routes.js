@@ -139,7 +139,6 @@ router.post("/get-topics-in-chapter", async (req, res) => {
         
         const resp = {topics, nameOfChapter};
 
-        console.log(topics);
         if (topics.length != 0 || nameOfChapter) return res.status(200).json(resp);
         else return res.status(501).json();
     } catch (error) {
@@ -155,9 +154,6 @@ router.post("/get-topic-answers", async (req, res) => {
         const nameOfCreator = await db.getNameOfCreator(idTopic);
         const answers = await db.getTopicAnswers(idTopic);
 
-        console.log(titleTopic);
-
-        
         return res.status(200).json({
             titleTopic,
             nameOfCreator,
@@ -239,6 +235,20 @@ router.post("/add-new-topic", async (req, res) => {
         return res.status(200).json();
     } catch (error) {
         console.log(`Ошибка добавления темы в роуте: ${error}`);
+        
+    }
+});
+
+router.post("/get-profile-statistic", async (req, res) => {
+    try {
+        const nickname = req.body.nicknameProfile;
+        const profileStatistic = await db.getProfileStatistic(nickname);
+
+        console.log(profileStatistic);
+        if (profileStatistic) return res.status(200).json(profileStatistic);
+        else return res.status(500).json();
+    } catch (error) {
+        console.log(`Ошибка получения данных профиля в роуте: ${error}`);
         
     }
 });
