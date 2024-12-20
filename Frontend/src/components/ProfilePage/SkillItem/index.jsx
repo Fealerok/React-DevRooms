@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./index.module.scss";
 
-const SkillItem = ({image, title}) => {
+const SkillItem = ({image, title, level}) => {
+
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    switch(level){
+      case 1: 
+        setColor("red");
+        break;
+        case 2: 
+        setColor("orange");
+        break;
+        case 3: 
+        setColor("green");
+        break;
+    }
+  }, []);
+  
   return (
     <div className={styles.skill_item}>
         <span>{title}</span>
@@ -10,9 +27,10 @@ const SkillItem = ({image, title}) => {
         </div>
 
         <div className={styles.skill_levels}>
-            <div className={styles.level}></div>
-            <div className={styles.level}></div>
-            <div className={styles.level}></div>
+
+          {Array.from({length: 3}).map((_, i) => (
+            <div key={i} className={`${styles.level} ${i < level ? color : ""}`}></div>
+          ))}
             
         </div>
     </div>

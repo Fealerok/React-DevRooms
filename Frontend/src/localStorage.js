@@ -1,7 +1,5 @@
 const saveTokens = (accessToken, refreshToken) => {
 
-    console.log(accessToken);
-    console.log(refreshToken);
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 }
@@ -14,7 +12,13 @@ const getTokens = () => {
     }
 }
 
+const deleteTokens = () =>{
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+}
+
 export {
     saveTokens,
-    getTokens
+    getTokens,
+    deleteTokens
 }

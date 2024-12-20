@@ -3,9 +3,10 @@ import styles from "./index.module.scss";
 import { Link } from 'react-router-dom';
 import login_img from "../../assets/images/header/login.png";
 import register_img from "../../assets/images/header/register.png";
+import leave_img from "../../assets/images/header/leave.png";
 
 import { AuthContext } from '../../context/authContext';
-import { getTokens } from '../../localStorage';
+import { deleteTokens } from '../../localStorage';
 import { use } from 'react';
 
 
@@ -27,6 +28,11 @@ const Header = () => {
     setNickname(user?.login);
     setIsLogged(user?.isLogged);
   }, []);
+
+  const leaveButtonClickHandle = () => {
+    deleteTokens();
+    window.location.reload();
+  }
 
   return (
     <div className={styles.header}>
@@ -60,6 +66,9 @@ const Header = () => {
             <div className={styles.auth_links}>
               <div className={styles.container}>
                 <Link to={`/profile/${user.login}`} className={styles.login} style={linkStyles}>{user.login}</Link>
+                <button onClick={() => leaveButtonClickHandle()}>
+                  <img src={leave_img} alt="" />
+                </button>
               </div>
           </div>
           )}

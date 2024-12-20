@@ -349,8 +349,9 @@ class Database{
 
     getUserTopics = async (login) => {
         try {
-            console.log(login);
+            
             const idUser = (await this.db.query(`SELECT id FROM Users WHERE nickname = '${login}'`)).rows[0].id;
+
             const topics = (await this.db.query(`
                 SELECT 
                     Topics.id, 
@@ -390,10 +391,32 @@ class Database{
 
     addNewTopic = async (idChapter, topicName, idUser) => {
         try {
-            console.log(idUser);
+            
            await this.db.query(`INSERT INTO Topics ("name", "id_chapter", "id_usercreator") VALUES ('${topicName}', ${idChapter}, ${idUser})`);
         } catch (error) {
             console.log(`ошибка добавления раздела в бд: ${error}`);
+        }
+    }
+
+    getProfileStatistic = async (nickname) => {
+        try {
+            const idUser = (await this.db.query(`SELECT id FROM Users WHERE nickname='${nickname}'`)).rows[0].id;
+            const statistic = (await this.db.query(`
+                SELECT 
+                    Users.id, 
+                    Users.nickname, 
+                    Users.email, 
+                    Users.skills,
+                    Users.id_usersdata,
+                    Roles.name as role_name FROM Users
+                JOIN Roles 
+                    ON Users.id_role = Roles.id 
+                WHERE Users.id=${idUser}`)).rows[0];
+
+           return statistic;
+        } catch (error) {
+            console.log(`Ошибка получения статистики профиля в бд: ${error}`);
+            
         }
     }
 }

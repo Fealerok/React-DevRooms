@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import styles from "./index.module.scss";
 import Chapter from '../Chapter';
+import { AuthContext } from '../../../context/authContext';
 
 import CreateWindow from '../../CreateWindow';
 const Category = ({header}) => {
 
   const [chapters, setChapters] = useState(null);
   const [isCreateWindow, setIsCreateWindow] = useState(false);
+
+  const {user} = useContext(AuthContext);
 
   const getChapters = async () => {
     const response = await fetch("http://localhost:3030/get-chapters", {
@@ -53,7 +56,7 @@ const Category = ({header}) => {
         <div className={styles.category}>
           <div className={styles.category_header}>
             <span>{header}</span>
-            <button onClick={() => setIsCreateWindow(true)}>
+            <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>
               <div className={styles.line}></div>
               <div className={styles.line}></div>
             </button>
@@ -82,7 +85,7 @@ const Category = ({header}) => {
         <div className={styles.category}>
           <div className={styles.category_header}>
             <span>{header}</span>
-            <button onClick={() => setIsCreateWindow(true)}>
+            <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>
               <div className={styles.line}></div>
               <div className={styles.line}></div>
             </button>
