@@ -42,15 +42,22 @@
         padding-right: 40px;
         border-bottom: 1px solid #CECECE;
         
-
         & > span:first-child{
             color: var(--background-purple);
             font-size: 20px;
         }
 
-        & > span:nth-child(2){
+        & > a{
             color: #64616B;
             font-size: 16px;
+            text-decoration: none;
+
+            transition: 0.2s;
+
+            &:hover{
+                color: var(--background-purple);
+
+            }
         }
     }
 }

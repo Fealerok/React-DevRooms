@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Input from '../../components/Input'
 import arrow from "../../assets/images/ButtonMessage/arrow.png";
 import { AuthContext } from '../../context/authContext';
+import { Link } from 'react-router-dom';
 
 import AnswerItem from '../../components/TopicAnsersPage/AnswerItem';
 
@@ -63,7 +64,7 @@ const TopicAnswersPage = () => {
         <div className={styles.content}>
             <div className={styles.header}>
               <span>{pageData.titleTopic}</span>
-              <span>Автор {pageData.nameOfCreator}</span>
+              <Link to={`/profile/${pageData.nameOfCreator}`}>Автор {pageData.nameOfCreator}</Link>
             </div>
 
             {pageData.answers.map((answer, i) => (

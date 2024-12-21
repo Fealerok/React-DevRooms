@@ -4,6 +4,7 @@ import { AuthContext } from '../../../context/authContext';
 import TopicsItem from '../../topicsItem';
 
 import styles from "./index.module.scss";
+import { useParams } from 'react-router-dom';
 
 const UserTopics = () => {
 
@@ -11,6 +12,7 @@ const UserTopics = () => {
   const [userTopics, setUserTopics] = useState([]);
 
   const {user} = useContext(AuthContext);
+  const {nicknameProfile} = useParams();
 
   const getUserTopics = async () => {
     const response = await fetch("http://localhost:3030/get-user-topics", {
@@ -19,7 +21,7 @@ const UserTopics = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        login: user.login
+        login: nicknameProfile
       })
     })
 
@@ -29,7 +31,7 @@ const UserTopics = () => {
 
   
   useEffect(() => {
-    if (user?.login) getUserTopics();
+    if (nicknameProfile) getUserTopics();
   }, [user]);
 
   
@@ -41,7 +43,7 @@ const UserTopics = () => {
 
         {userTopics.length == 0 ? (
             <div className={styles.topics}>
-              Публикаций нет
+              <div className={styles.empty_topic}></div>
             </div>
         ) : (
             <div className={styles.topics}>

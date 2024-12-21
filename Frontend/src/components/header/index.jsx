@@ -45,7 +45,7 @@ const Header = () => {
 
                   {!user?.login ? 
                     <Link to={"/auth"} className={styles.link} style={linkStyles}>Профиль</Link> : 
-                    <Link to={`/profile/${user.login}`} className={styles.link} style={linkStyles}>Профиль</Link>
+                    <Link reloadDocument to={`/profile/${user.login}`} className={styles.link} style={linkStyles}>Профиль</Link>
                   }
               </div>
             </div>
@@ -65,7 +65,7 @@ const Header = () => {
           ) : (
             <div className={styles.auth_links}>
               <div className={styles.container}>
-                <Link to={`/profile/${user.login}`} className={styles.login} style={linkStyles}>{user.login}</Link>
+                <Link reloadDocument to={`/profile/${user.login}`} className={styles.login} style={linkStyles}>{user.login}</Link>
                 <button onClick={() => leaveButtonClickHandle()}>
                   <img src={leave_img} alt="" />
                 </button>

@@ -207,6 +207,7 @@ router.post("/add-new-category", async (req, res) => {
         return res.status(200).json();
     } catch (error) {
         console.log(`Ошибка добавления категории в роуте: ${error}`);
+        return res.status(500).json();
         
     }
 });
@@ -220,6 +221,7 @@ router.post("/add-new-chapter", async (req, res) => {
        return res.status(200).json();
     } catch (error) {
         console.log(`Ошибка добавления раздела в роуте: ${error}`);
+        return res.status(500).json();
         
     }
 });
@@ -235,6 +237,7 @@ router.post("/add-new-topic", async (req, res) => {
         return res.status(200).json();
     } catch (error) {
         console.log(`Ошибка добавления темы в роуте: ${error}`);
+        return res.status(500).json();
         
     }
 });
@@ -244,12 +247,25 @@ router.post("/get-profile-statistic", async (req, res) => {
         const nickname = req.body.nicknameProfile;
         const profileStatistic = await db.getProfileStatistic(nickname);
 
-        console.log(profileStatistic);
         if (profileStatistic) return res.status(200).json(profileStatistic);
         else return res.status(500).json();
     } catch (error) {
         console.log(`Ошибка получения данных профиля в роуте: ${error}`);
+        return res.status(500).json();
         
+    }
+});
+
+router.post("/update-profile-statistic", async (req, res) => {
+    try {
+        const idUser = req.body.id;
+        const newSkills = req.body.newSkills;
+
+        await db.updateProfileSkills(idUser, newSkills);
+       return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка обновления умений в роуте: ${error}`);
+        return res.status(500).json();
     }
 });
 

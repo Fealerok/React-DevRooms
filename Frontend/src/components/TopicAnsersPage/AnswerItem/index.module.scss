@@ -13,6 +13,11 @@
         align-items: center;
         gap: 15px;
 
+        & > a{
+            text-decoration: none;
+            
+        }
+
         & > span{
             margin-top: 5px;
         }
