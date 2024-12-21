@@ -13,6 +13,8 @@ import react from "../../assets/images/ProfilePage/skills_logo/react.png";
 import c_plus from "../../assets/images/ProfilePage/skills_logo/c_plus.png";
 import js from "../../assets/images/ProfilePage/skills_logo/js.png";
 import python from "../../assets/images/ProfilePage/skills_logo/python.png";
+import gear from "../../assets/images/ProfilePage/gear.png";
+import accept from "../../assets/images/ProfilePage/accept.png";
 import { useParams } from 'react-router-dom';
 
 
@@ -21,9 +23,10 @@ function ProfilePage() {
     const {user} = useContext(AuthContext);
     const {nicknameProfile} = useParams();
     const [imagesSkills, setImagesSkills] = useState([c_sharp, c_plus, css, react, python, js]);
+    const [isEdit, setIsEdit] = useState(false);
 
     const [profileStatistic, setProfileStatistic] = useState({});
-
+    const [profileSkills, setProfileSkills] = useState({});
     const getProfileStatistic = async () => {
         const response = await fetch("http://localhost:3030/get-profile-statistic", {
              method: "POST",
@@ -37,22 +40,60 @@ function ProfilePage() {
 
         if (response.ok) response.json().then(r => {
             setProfileStatistic(r);
+            setProfileSkills(r.skills);
         });
 
 
     }
+
+    const updateProfileSkills = async () => {
+
+        console.log(profileSkills);
+
+        const response = await fetch("http://localhost:3030/update-profile-statistic", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: profileStatistic.id,
+                newSkills: profileSkills
+            })
+        });
+
+        if (response.ok) getProfileStatistic();
+    }
+
+    const changeProfileSkills = (nameSkill, level) => {
+        let newSkills = profileSkills;
+        newSkills[nameSkill] = level;
+        setProfileSkills(newSkills);
+        
+    }
+
+    const buttonAcceptClick = () => {
+        if (isEdit) updateProfileSkills();
+        setIsEdit(!isEdit);
+    }
+
 
     useEffect(() => {
         if (nicknameProfile) getProfileStatistic();
     }, []);
 
     if (profileStatistic.skills ){
-
         return(
             <div className={styles.profilePage}>
     
                 <div className={styles.profile_container}>
-                    <HeaderLoginPage title={profileStatistic.nickname} />
+                    <div className={styles.header}>
+                        <div className={styles.container}>
+                            <span>{profileStatistic.nickname}</span>
+                            <button className={user?.login == nicknameProfile ? "" : "hide"} onClick={buttonAcceptClick}>
+                                <img src={isEdit ? accept : gear} alt="" />
+                            </button>
+                        </div>
+                    </div>
     
                     <div className={styles.content}>
     
@@ -69,7 +110,7 @@ function ProfilePage() {
                             <div className={styles.skills}>
     
                                 {Object.keys(profileStatistic.skills).map((key, i) => (
-                                    <SkillItem key={i} image={imagesSkills[i]} title={key} level={profileStatistic.skills[key]}></SkillItem>
+                                    <SkillItem changeProfileSkills={changeProfileSkills} key={i} image={imagesSkills[i]} title={key} level={profileStatistic.skills[key]} isEdit={isEdit}></SkillItem>
                                 ))}
 
 

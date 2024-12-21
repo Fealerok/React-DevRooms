@@ -15,6 +15,48 @@
         align-items: center;
 
         border: 1px solid #CECECE;
+
+        .header{
+            display: flex;
+            justify-content: center;
+            height: 60px;
+            border: 1px solid #D2D2D2;
+            width: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            font-size: 24px;
+            color: var(--background-purple);
+            background-color: white;
+
+            & > .container{
+                
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 100%;
+                width: calc(100% - 80px);
+                
+                & > span{
+                    margin: 0 auto;
+                }
+
+                & > button{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 30px;
+                    height: 30px;
+                    background-color: transparent;
+                    border: none;
+
+                    cursor: pointer;
+                    & > img{
+                        width: 100%;
+                    }
+                }
+            }
+
+        }
     }
 
     .content{

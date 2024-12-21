@@ -168,11 +168,12 @@ class Database{
 
 
                 await this.db.query(`
-                    INSERT INTO Users ("nickname", "email", "id_role", "id_usersdata")
-                    SELECT login, '${email}', (SELECT id FROM Roles WHERE name='Участник'), id
+                    INSERT INTO Users ("nickname", "email", "id_role", "id_usersdata", "skills")
+                    SELECT login, '${email}', (SELECT id FROM Roles WHERE name='Участник'), id, '{"C#": 0, "CSS": 0, "React": 0, "C++": 0, "JavaScript": 0, "Python": 0}'::jsonb
                     FROM UsersData
                     WHERE id=${userRows[0].id}
                 `);
+                
                 
                 return "Регистрация прошла успешно!";
             }
@@ -352,6 +353,8 @@ class Database{
             
             const idUser = (await this.db.query(`SELECT id FROM Users WHERE nickname = '${login}'`)).rows[0].id;
 
+            console.log(login);
+
             const topics = (await this.db.query(`
                 SELECT 
                     Topics.id, 
@@ -419,6 +422,17 @@ class Database{
             
         }
     }
+
+    updateProfileSkills = async (idUser, newSkills) => {
+        try {
+            // Преобразуем newSkills в строку JSON
+            const skillsJson = JSON.stringify(newSkills);
+            await this.db.query(`UPDATE Users SET skills=$1 WHERE id=$2`, [skillsJson, idUser]);
+        } catch (error) {
+            console.log(`Ошибка обновления умений в бд: ${error}`);
+        }
+    }
+    
 }
 
 //Экспортируем новый экземпляр класса Database для доступа в других местах

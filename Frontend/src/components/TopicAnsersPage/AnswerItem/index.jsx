@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 import styles from "./index.module.scss"
 
 import avatar from "../../../assets/images/ProfilePage/avatar.jpg";
@@ -10,7 +11,8 @@ const AnswerItem = ({answer_text, nicknameOfCreator}) => {
             <div>
               <img src={avatar} alt="" />
             </div>
-            <span>{nicknameOfCreator}</span>
+
+            <Link to={`/profile/${nicknameOfCreator}`}>{nicknameOfCreator}</Link>
         </div>
 
         <div className={styles.answer_text_container}>
