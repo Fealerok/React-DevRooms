@@ -269,4 +269,26 @@ router.post("/update-profile-statistic", async (req, res) => {
     }
 });
 
+router.get("/get-popular-topics", async (req, res) => {
+    try {
+        const popularTopics = await db.getPopularTopics();
+
+        return res.status(200).json(popularTopics);
+    } catch (error) {
+        console.log(`Ошибка получения популярных тем в роуте: ${error}`);
+        
+    }
+});
+
+router.get("/get-popular-users", async(req, res) => {
+    try {
+        const popularUsers = await db.getPopularUsers();
+
+        return res.status(200).json(popularUsers);
+    } catch (error) {
+        console.log(`Ошибка получения активных пользователей в роуте: ${error}`);
+        
+    }
+});
+
 module.exports = router;

@@ -27,6 +27,7 @@ function ProfilePage() {
 
     const [profileStatistic, setProfileStatistic] = useState({});
     const [profileSkills, setProfileSkills] = useState({});
+    const [bottomProfileStatistic, setbottomProfileStatistic] = useState([]);
     const getProfileStatistic = async () => {
         const response = await fetch("http://localhost:3030/get-profile-statistic", {
              method: "POST",
@@ -39,8 +40,9 @@ function ProfilePage() {
         });
 
         if (response.ok) response.json().then(r => {
-            setProfileStatistic(r);
-            setProfileSkills(r.skills);
+            setProfileStatistic(r.statistic);
+            setProfileSkills(r.statistic.skills);
+            setbottomProfileStatistic(r.statistic2);
         });
 
 
@@ -119,12 +121,12 @@ function ProfilePage() {
                             </div>
                             <div className={styles.profile_statistic}>
                                 <div className={styles.statistic_block}>
-                                    <span>0</span>
+                                    <span>{bottomProfileStatistic[1].count}</span>
                                     <span>Сообщений</span>
                                 </div>
     
                                 <div className={styles.statistic_block}>
-                                    <span>0</span>
+                                    <span>{bottomProfileStatistic[0].count}</span>
                                     <span>Тем создано</span>
                                 </div>
     

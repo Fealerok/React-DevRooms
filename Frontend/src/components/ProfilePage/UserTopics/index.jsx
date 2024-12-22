@@ -5,6 +5,7 @@ import TopicsItem from '../../topicsItem';
 
 import styles from "./index.module.scss";
 import { useParams } from 'react-router-dom';
+import EmptyBlock from '../../EmptyBlock';
 
 const UserTopics = () => {
 
@@ -43,7 +44,7 @@ const UserTopics = () => {
 
         {userTopics.length == 0 ? (
             <div className={styles.topics}>
-              <div className={styles.empty_topic}></div>
+              <EmptyBlock />
             </div>
         ) : (
             <div className={styles.topics}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styles from "./index.module.scss"
+import EmptyBlock from '../../EmptyBlock';
 
 import PopularContent from '../../ForumPageWidget/PopularContent';
 
@@ -23,7 +24,7 @@ const Widget = ({isBlur}) => {
         </div>
 
         <div className={styles.widget_content}>
-            {isPopular ? <PopularContent /> : <div>Новости</div>}
+            {isPopular ? <PopularContent /> : <EmptyBlock />}
         </div>
 
         

@@ -10,9 +10,11 @@
 
 
     margin-bottom: 60px;
-}
-.topicsContainer{
-    overflow-y: scroll;
+
+    .topicsContainer{
+        width: 100%;
+        padding: 0px 40px;
+    }
 }
 ::-webkit-scrollbar{
     width: 0;
