@@ -48,7 +48,6 @@ const Statistic = () => {
         (
           <EmptyBlock />
         ) :
-        
           popularUsers.map((u, i) => (
             <Link reloadDocument to={`/profile/${u.name_creator}`}>
             <span>{`${i+1}) ${u.name_creator} `}</span>

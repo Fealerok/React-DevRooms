@@ -24,6 +24,7 @@ class Database{
     #createTables = async () => {
         try {
 
+    
             //Таблица Users
             await this.db.query(
                 `
@@ -56,7 +57,7 @@ class Database{
                      id SERIAL PRIMARY KEY,
                      text_answer TEXT,
                      id_topic INTEGER NOT NULL,
-                     id_userCreator INTEGER NOT NULL
+                     name_creator TEXT NOT NULL
                 )
                 `
              );
@@ -68,7 +69,7 @@ class Database{
                      id SERIAL PRIMARY KEY,
                      name TEXT,
                      id_chapter INTEGER NOT NULL,
-                     id_userCreator INTEGER NOT NULL
+                     id_usercreator INTEGER NOT NULL
                 )
                 `
              );
@@ -109,11 +110,13 @@ class Database{
                 `
                 CREATE TABLE IF NOT EXISTS RefreshTokens(
                      id SERIAL PRIMARY KEY,
-                     token text NOT NULL,
+                     token TEXT NOT NULL,
                      id_user INTEGER NOT NULL
                 )
                 `
              );
+
+
 
 
         } catch (e) {
