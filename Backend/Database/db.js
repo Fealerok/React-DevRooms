@@ -416,7 +416,18 @@ class Database{
                     ON Users.id_role = Roles.id 
                 WHERE Users.id=${idUser}`)).rows[0];
 
-           return statistic;
+            const statistic2 = (await this.db.query(`
+                SELECT Count(*) 
+                    FROM Topics count_topics
+                WHERE id_usercreator=${idUser}
+                UNION
+                SELECT Count(*) 
+                    FROM Answers as count_messages
+                WHERE name_creator='${nickname}'`)).rows;
+           return {
+            statistic,
+            statistic2
+           };
         } catch (error) {
             console.log(`Ошибка получения статистики профиля в бд: ${error}`);
             
@@ -430,6 +441,41 @@ class Database{
             await this.db.query(`UPDATE Users SET skills=$1 WHERE id=$2`, [skillsJson, idUser]);
         } catch (error) {
             console.log(`Ошибка обновления умений в бд: ${error}`);
+        }
+    }
+
+    getPopularTopics = async () => {
+        try {
+            const popularTopics = (await this.db.query(`
+                SELECT Topics.id, Topics.name, Users.nickname, COUNT(*) AS count
+                FROM Topics
+                JOIN Answers ON Topics.id = Answers.id_topic
+                JOIN Users ON Users.id = Topics.id_usercreator
+                GROUP BY Topics.id, Topics.name, Users.nickname
+                ORDER BY count DESC
+                LIMIT 5;`)).rows;
+
+            return popularTopics;
+        } catch (error) {
+            console.log(`Ошибка получения популярных тем в бд: ${error}`);
+            
+        }
+    }
+
+    getPopularUsers = async () => {
+        try {
+            const popularUsers = (await this.db.query(`
+                SELECT Answers.name_creator, Users.id, Count(*) as count 
+                FROM Answers 
+                JOIN Users ON Users.nickname = Answers.name_creator 
+                GROUP BY Answers.name_creator, Users.id
+				ORDER By count DESC
+                LIMIT 5;
+                `)).rows;
+            return popularUsers;
+        } catch (error) {
+            console.log(`Ошибка получения активных пользователей в бд: ${error}`);
+            
         }
     }
     

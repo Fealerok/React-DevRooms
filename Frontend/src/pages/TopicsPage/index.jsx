@@ -64,9 +64,11 @@ function TopicsPage(){
           <>
             <div className={styles.topicsCard}>
               <TopicsHeader title={nameOfChapter} setIsCreateWindow={setIsCreateWindow}  /> 
-              {topicsInChapter.map((t, i) => (
-                <TopicsItem key={i} title={t.name} topicId={t.id} nicknameCreator={t.nickname} />
-              ))}
+              <div className={styles.topicsContainer}>
+                  {topicsInChapter.map((t, i) => (
+                    <TopicsItem key={i} title={t.name} topicId={t.id} nicknameCreator={t.nickname} />
+                  ))}
+              </div>
             </div>
 
             <CreateWindow title={"темы"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewTopic}/>

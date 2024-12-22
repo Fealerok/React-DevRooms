@@ -3,11 +3,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import styles from "./index.module.scss";
 import Chapter from '../Chapter';
 import { AuthContext } from '../../../context/authContext';
+import EmptyBlock from '../../EmptyBlock';
 
 import CreateWindow from '../../CreateWindow';
 const Category = ({header}) => {
 
-  const [chapters, setChapters] = useState(null);
+  const [chapters, setChapters] = useState([]);
   const [isCreateWindow, setIsCreateWindow] = useState(false);
 
   const {user} = useContext(AuthContext);
@@ -49,10 +50,8 @@ const Category = ({header}) => {
   }
 
 
-  if (chapters){
-    return (
-
-      <>
+  return (
+    <>
         <div className={styles.category}>
           <div className={styles.category_header}>
             <span>{header}</span>
@@ -63,9 +62,15 @@ const Category = ({header}) => {
           </div>
           <div className={styles.category_content}>
 
-            {chapters.map((c, i) => (
-              <Chapter key={i} title={c.name} chapterId={c.id} />
-            ))}
+            {
+
+              chapters?.length != 0 ? 
+                chapters?.map((c, i) => (
+                  <Chapter key={i} title={c.name} chapterId={c.id} />
+                )) : 
+                <EmptyBlock />
+              
+            }
 
 
           </div>
@@ -73,36 +78,7 @@ const Category = ({header}) => {
 
         <CreateWindow title={"раздела"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewChapter}/>
       </>
-      
-    )
-
-  }
-
-  else{
-    return (
-
-      <>
-        <div className={styles.category}>
-          <div className={styles.category_header}>
-            <span>{header}</span>
-            <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>
-              <div className={styles.line}></div>
-              <div className={styles.line}></div>
-            </button>
-          </div>
-          <div className={styles.category_content}>
-
-            <div className={styles.empty_chapter}></div>
-
-
-          </div>
-        </div>
-
-        <CreateWindow title={"раздела"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewChapter}/>
-      </>
-      
-    )
-  }
+  )
 
 
   
