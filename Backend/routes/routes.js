@@ -276,6 +276,7 @@ router.get("/get-popular-topics", async (req, res) => {
         return res.status(200).json(popularTopics);
     } catch (error) {
         console.log(`Ошибка получения популярных тем в роуте: ${error}`);
+        return res.status(500).json();
         
     }
 });
@@ -287,7 +288,32 @@ router.get("/get-popular-users", async(req, res) => {
         return res.status(200).json(popularUsers);
     } catch (error) {
         console.log(`Ошибка получения активных пользователей в роуте: ${error}`);
+        return res.status(500).json();
         
+    }
+});
+
+router.post("/delete-topic", async(req, res) => {
+    try {
+        const topicId = req.body.topicId;
+
+        await db.deleteTopic(topicId);
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка удаления темы в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.post("/delete-chapter", async(req, res) => {
+    try {
+        const chapterId = req.body.chapterId;
+
+        await db.deleteChapter(chapterId);
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка удаления раздела в роуте: ${error}`);
+        return res.status(500).json();
     }
 });
 
