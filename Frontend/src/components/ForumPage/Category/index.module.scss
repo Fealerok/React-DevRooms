@@ -22,6 +22,31 @@
         padding-left: 40px;
         padding-right: 40px;
 
+        .header_content{
+            display: flex;
+            align-items: center;
+            
+            gap: 10px;
+            & > button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent;
+                cursor: pointer;
+                border: none;
+                transition: 0.2s;
+                
+                
+                &:hover{
+                    transform: scale(1.1);
+                }
+        
+                & > img{
+                    width: 100%;
+                }
+            }
+        }
+
         & > button{
             position: relative;
             width: 40px;

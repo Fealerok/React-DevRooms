@@ -49,6 +49,10 @@ const ForumPageContent = () => {
     console.log(isCreateWindow);
   }
 
+  const deleteCategoryHandle = () => {
+    getCategories();
+  }
+
 
   if (categories) {
     return (
@@ -59,7 +63,7 @@ const ForumPageContent = () => {
       
               <div className={styles.container}>
                 {categories.map((cat, i) => (
-                    <Category key={i} header={cat.name} />
+                    <Category key={i} header={cat.name} deleteCategoryHandle = {deleteCategoryHandle} />
                 ))}
               </div>
 

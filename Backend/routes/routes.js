@@ -317,4 +317,17 @@ router.post("/delete-chapter", async(req, res) => {
     }
 });
 
+router.post("/delete-category", async(req, res) => {
+    try {
+        const categoryName = req.body.categoryName;
+
+        await db.deleteCategory(categoryName);
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка удаления категории в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+
 module.exports = router;
