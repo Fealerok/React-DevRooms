@@ -2,15 +2,44 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 40px;
     font-size: 24px;
-    color: #64616B;
     transition: 0.2s;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-right: 40px;
 
-    text-decoration: none;
-    &:hover{
-        color: var(--background-purple);
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
         cursor: pointer;
-        background-color: #FAF1FF;
+        border: none;
+        width: 35px;
+        height: 35px;
+        transition: 0.2s;
+        
+        &:hover{
+            transform: scale(1.2);
+        }
+
+        & > img{
+            width: 100%;
+        }
     }
+
+    & > a{
+        text-decoration: none;
+        color: #64616B;
+        height: 100%;
+        width: 100%;
+        padding: 40px 40px;
+
+        &:hover{
+            color: var(--background-purple);
+            cursor: pointer;
+            background-color: #FAF1FF;
+        }
+    }
+
 }

@@ -57,7 +57,8 @@ class Database{
                      id SERIAL PRIMARY KEY,
                      text_answer TEXT,
                      id_topic INTEGER NOT NULL,
-                     name_creator TEXT NOT NULL
+                     name_creator TEXT NOT NULL,
+                     FOREIGN KEY (id_topic) REFERENCES topics(id) ON DELETE CASCADE
                 )
                 `
              );
@@ -69,7 +70,8 @@ class Database{
                      id SERIAL PRIMARY KEY,
                      name TEXT,
                      id_chapter INTEGER NOT NULL,
-                     id_usercreator INTEGER NOT NULL
+                     id_usercreator INTEGER NOT NULL,
+                     FOREIGN KEY (id_chapter) REFERENCES chapters(id) ON DELETE CASCADE
                 )
                 `
              );
@@ -478,6 +480,25 @@ class Database{
             return popularUsers;
         } catch (error) {
             console.log(`Ошибка получения активных пользователей в бд: ${error}`);
+            
+        }
+    }
+
+    deleteTopic = async (topicId) => {
+        try {
+            await this.db.query(`DELETE FROM Answers WHERE id_topic = ${topicId}`);
+            await this.db.query(`DELETE FROM Topics WHERE id=${topicId}`);
+        } catch (error) {
+            console.log(`Ошибка удаления темы в бд: ${error}`);
+            
+        }
+    }
+
+    deleteChapter = async (chapterId) => {
+        try {
+            await this.db.query(`DELETE FROM Chapters WHERE id=${chapterId}`);
+        } catch (error) {
+            console.log(`Ошибка удаления раздела в бд: ${error}`);
             
         }
     }
