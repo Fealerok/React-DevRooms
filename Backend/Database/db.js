@@ -82,7 +82,8 @@ class Database{
                 CREATE TABLE IF NOT EXISTS Chapters(
                      id SERIAL PRIMARY KEY,
                      name TEXT,
-                     id_category INTEGER NOT NULL
+                     id_category INTEGER NOT NULL,
+                      FOREIGN KEY (id_category) REFERENCES categories(id) ON DELETE CASCADE
                 )
                 `
              );
@@ -497,6 +498,16 @@ class Database{
     deleteChapter = async (chapterId) => {
         try {
             await this.db.query(`DELETE FROM Chapters WHERE id=${chapterId}`);
+        } catch (error) {
+            console.log(`Ошибка удаления раздела в бд: ${error}`);
+            
+        }
+    }
+
+    deleteCategory = async (categoryName) => {
+        try {
+            const categoryId = (await this.db.query(`SELECT id FROM Categories WHERE name='${categoryName}'`)).rows[0].id;
+            await this.db.query(`DELETE FROM Categories WHERE id=${categoryId}`);
         } catch (error) {
             console.log(`Ошибка удаления раздела в бд: ${error}`);
             
