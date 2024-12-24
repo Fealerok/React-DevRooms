@@ -3,10 +3,10 @@
     flex-direction: column;
     background-color: white;   
     height: calc(100% - 90%);
-    min-width: 400px;
+    min-width: 300px;
     
     border-radius: 20px;
-    border: 1px solid #CECECE;
+    
 
     .statistic_content{
         display: flex;
@@ -21,6 +21,7 @@
             text-decoration: none;
             color: #64616B;
             transition: 0.2s;
+            font-size: 12px;
 
             &:hover{
                 color: var(--background-purple);
@@ -28,6 +29,7 @@
             
             & > span:nth-child(2){
                 text-align: center;
+                font-size: 12px;
             }
         }
     }

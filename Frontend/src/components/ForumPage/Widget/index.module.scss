@@ -5,6 +5,7 @@
     background-color: white;
     border-radius: 20px;
     border: 1px solid #CECECE;
+    overflow: hidden;
     
 
     .widget_header{
@@ -20,6 +21,7 @@
             cursor: pointer;
             position: relative;
             transition: 0.2s;
+            color: #64616B;
 
             &:first-child{
                 margin-left: 30px;
@@ -47,7 +49,7 @@
     }
 
     .widget_content{
-        width: calc(100% - 60px);
+        width: 100%;
         margin: 0 auto;
         height: 100%;
         
