@@ -61,6 +61,8 @@ const Category = ({header, deleteCategoryHandle}) => {
       })
     });
 
+    console.log(response);
+
     if (response.ok) deleteCategoryHandle();
   }
 

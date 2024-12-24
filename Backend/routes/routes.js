@@ -107,7 +107,7 @@ router.get("/get-categories", async (req, res) => {
     try{
         const categories = await db.getCategories();
 
-        if (categories.length == 0) return res.status(501).json();
+        if (categories.length == 0) return res.status(200).json([]);
 
         return res.status(200).json({categories});
     }
@@ -246,7 +246,7 @@ router.post("/get-profile-statistic", async (req, res) => {
     try {
         const nickname = req.body.nicknameProfile;
         const profileStatistic = await db.getProfileStatistic(nickname);
-
+        console.log(profileStatistic);
         if (profileStatistic) return res.status(200).json(profileStatistic);
         else return res.status(500).json();
     } catch (error) {
@@ -320,6 +320,7 @@ router.post("/delete-chapter", async(req, res) => {
 router.post("/delete-category", async(req, res) => {
     try {
         const categoryName = req.body.categoryName;
+
 
         await db.deleteCategory(categoryName);
         return res.status(200).json();
