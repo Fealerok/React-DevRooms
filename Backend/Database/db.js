@@ -30,7 +30,7 @@ class Database{
                 `
                 CREATE TABLE IF NOT EXISTS Users(
                      id SERIAL PRIMARY KEY NOT NULL,
-                     nickname TEXT NOT NULL,
+                     nickname TEXT NOT NULL UNIQUE,
                      email TEXt NOT NULL,
                      skills JSONB,
                      id_role INTEGER NOT NULL,
@@ -44,8 +44,44 @@ class Database{
                 `
                 CREATE TABLE IF NOT EXISTS UsersData(
                      id SERIAL PRIMARY KEY,
-                     login TEXT NOT NULL,
+                     login TEXT NOT NULL UNIQUE,
                      password TEXT NOT NULL
+                )
+                `
+             );
+
+               //Таблица Categories
+               await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Categories(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT
+                )
+                `
+             );
+           
+
+             //Таблица Chapters
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Chapters(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT,
+                     id_category INTEGER NOT NULL,
+                      FOREIGN KEY (id_category) REFERENCES categories(id) ON DELETE CASCADE
+                )
+                `
+             );
+
+               //Таблица Topics
+               await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Topics(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT,
+                     id_chapter INTEGER NOT NULL,
+                     id_usercreator INTEGER NOT NULL,
+                     FOREIGN KEY (id_chapter) REFERENCES chapters(id) ON DELETE CASCADE
                 )
                 `
              );
@@ -63,47 +99,14 @@ class Database{
                 `
              );
 
-             //Таблица Topics
-             await this.db.query(
-                `
-                CREATE TABLE IF NOT EXISTS Topics(
-                     id SERIAL PRIMARY KEY,
-                     name TEXT,
-                     id_chapter INTEGER NOT NULL,
-                     id_usercreator INTEGER NOT NULL,
-                     FOREIGN KEY (id_chapter) REFERENCES chapters(id) ON DELETE CASCADE
-                )
-                `
-             );
 
-             //Таблица Chapters
-             await this.db.query(
-                `
-                CREATE TABLE IF NOT EXISTS Chapters(
-                     id SERIAL PRIMARY KEY,
-                     name TEXT,
-                     id_category INTEGER NOT NULL,
-                      FOREIGN KEY (id_category) REFERENCES categories(id) ON DELETE CASCADE
-                )
-                `
-             );
-
-             //Таблица Categories
-             await this.db.query(
-                `
-                CREATE TABLE IF NOT EXISTS Categories(
-                     id SERIAL PRIMARY KEY,
-                     name TEXT
-                )
-                `
-             );
 
              //Таблица Roles
              await this.db.query(
                 `
                 CREATE TABLE IF NOT EXISTS Roles(
                      id SERIAL PRIMARY KEY,
-                     name TEXT
+                     name TEXT UNIQUE
                 )
                 `
              );
@@ -116,6 +119,55 @@ class Database{
                      token TEXT NOT NULL,
                      id_user INTEGER NOT NULL
                 )
+                `
+             );
+
+             //Добавление ролей
+             await this.db.query(
+                `
+                INSERT INTO Roles ("name")
+                    VALUES ('Администратор')
+                    ON CONFLICT ("name") DO NOTHING;
+
+                    INSERT INTO Roles ("name")
+                    VALUES ('Участник')
+                    ON CONFLICT ("name") DO NOTHING;
+                `
+             );
+
+             //Добавление админских аккаунтов
+             await this.db.query(
+                `
+                INSERT INTO UsersData ("login", "password") VALUES ('Fealer', '${await bcrypt.hash("admin1", salt)}') ON CONFLICT ("login") DO NOTHING;
+                INSERT INTO UsersData ("login", "password") VALUES ('Rimirana', '${await bcrypt.hash("admin2", salt)}') ON CONFLICT ("login") DO NOTHING;
+                `
+             );
+
+             const getIdUsersData = async (login) => {
+                const id = (await this.db.query(`SELECT id FROM UsersData WHERE login='${login}'`)).rows[0].id
+                return id;
+                
+             }
+
+             const getIdRole = async (role_name) => {
+                const id_rows = (await this.db.query(`SELECT id FROM Roles WHERE name='${role_name}'`)).rows;
+            
+                return id_rows[0].id;
+             }
+
+             
+
+             //Добавление админских аккаунтов
+             await this.db.query(
+                `
+                INSERT INTO Users ("nickname", "email", "skills", "id_role", "id_usersdata") 
+                VALUES ('Fealer', 'CreepPlay@mail.ru', '{"C#": 0, "CSS": 0, "React": 0, "C++": 0, "JavaScript": 0, "Python": 0}'::jsonb, ${await getIdRole("Администратор")}, ${await getIdUsersData("Fealer")} ) 
+                ON CONFLICT ("nickname") DO NOTHING;
+
+                INSERT INTO Users ("nickname", "email", "skills", "id_role", "id_usersdata") 
+                VALUES ('Rimirana', 'Rimirana@mail.ru', '{"C#": 0, "CSS": 0, "React": 0, "C++": 0, "JavaScript": 0, "Python": 0}'::jsonb, ${await getIdRole("Администратор")}, ${await getIdUsersData("Rimirana")} ) 
+                ON CONFLICT ("nickname") DO NOTHING;
+                
                 `
              );
 
@@ -422,14 +474,24 @@ class Database{
                     ON Users.id_role = Roles.id 
                 WHERE Users.id=${idUser}`)).rows[0];
 
-            const statistic2 = (await this.db.query(`
-                SELECT Count(*) 
+                
+                const topics_count = (await this.db.query(`SELECT Count(*) 
                     FROM Topics count_topics
-                WHERE id_usercreator=${idUser}
-                UNION
-                SELECT Count(*) 
+                WHERE id_usercreator=${idUser}`)).rows[0].count;
+                
+                    const answers_count = (await this.db.query(`SELECT Count(*) 
                     FROM Answers as count_messages
-                WHERE name_creator='${nickname}'`)).rows;
+                WHERE name_creator='${nickname}'`)).rows[0].count;
+            
+                if (!topics_count) topics_count = 0;
+                if (!answers_count) answers_count = 0;
+
+                const statistic2 = [
+                    {
+                        topics_count, 
+                        answers_count
+                    }
+                ]
            return {
             statistic,
             statistic2
@@ -506,7 +568,9 @@ class Database{
 
     deleteCategory = async (categoryName) => {
         try {
+            
             const categoryId = (await this.db.query(`SELECT id FROM Categories WHERE name='${categoryName}'`)).rows[0].id;
+            console.log(categoryId);
             await this.db.query(`DELETE FROM Categories WHERE id=${categoryId}`);
         } catch (error) {
             console.log(`Ошибка удаления раздела в бд: ${error}`);

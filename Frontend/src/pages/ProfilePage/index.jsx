@@ -43,6 +43,8 @@ function ProfilePage() {
             setProfileStatistic(r.statistic);
             setProfileSkills(r.statistic.skills);
             setbottomProfileStatistic(r.statistic2);
+
+            console.log(r.statistic2);
         });
 
 
@@ -121,12 +123,12 @@ function ProfilePage() {
                             </div>
                             <div className={styles.profile_statistic}>
                                 <div className={styles.statistic_block}>
-                                    <span>{bottomProfileStatistic[1].count}</span>
+                                    <span>{bottomProfileStatistic[0]?.answers_count} </span>
                                     <span>Сообщений</span>
                                 </div>
     
                                 <div className={styles.statistic_block}>
-                                    <span>{bottomProfileStatistic[0].count}</span>
+                                    <span>{bottomProfileStatistic[0]?.topics_count}</span>
                                     <span>Тем создано</span>
                                 </div>
     

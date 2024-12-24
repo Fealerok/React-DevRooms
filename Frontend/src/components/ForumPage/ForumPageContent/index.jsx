@@ -44,14 +44,8 @@ const ForumPageContent = () => {
     
   }
 
-  const buttonClickHandle = () => {
-    setIsCreateWindow(true);
-    console.log(isCreateWindow);
-  }
 
-  const deleteCategoryHandle = () => {
-    getCategories();
-  }
+  const deleteCategoryHandle = () => getCategories();
 
 
   if (categories) {
@@ -67,7 +61,7 @@ const ForumPageContent = () => {
                 ))}
               </div>
 
-              <button onClick={buttonClickHandle} className={user?.role == "Администратор" ? "" : "hide" }>Новая категория</button>
+              <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>Новая категория</button>
             </div>
       
             <Statistic />
@@ -82,13 +76,18 @@ const ForumPageContent = () => {
 
   else{
     return (
-      <div className={styles.forum_page_content}>
-        <div className={styles.categories}>
-          Категорий нет
+      <>
+        <div className={styles.forum_page_content}>
+          <div className={styles.categories}>
+            <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>Новая категория</button>
+          </div>
+    
+          <Statistic />
         </div>
-  
-        <Statistic />
-      </div>
+
+        <CreateWindow title={"категории"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewCategory}/>
+      </>
+      
     )
   }
 
