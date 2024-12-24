@@ -5,15 +5,16 @@
     margin-top: 60px;
     height: 100%;
     margin-bottom: 60px;
-    gap: 30px;
+    
+    gap: 60px;
 
     .categories{
         display: flex;
         flex-direction: column;
 
-        width: 70%;
+        width: 100%;
 
-        gap: 40px;
+        gap: 60px;
 
         .container{
             display: flex;

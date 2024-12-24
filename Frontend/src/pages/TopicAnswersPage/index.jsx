@@ -13,6 +13,7 @@ const TopicAnswersPage = () => {
   const {idTopic} = useParams();
   const [pageData, setPageData] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [inputRef, setInputRef] = useState(null);
 
   const {user} = useContext(AuthContext);
 
@@ -48,8 +49,12 @@ const TopicAnswersPage = () => {
 
     if (response.ok) getTopicAnswers();
 
-    
+    inputRef.current.value = "";
 
+  }
+
+  const getInputRef = (input) => {
+    setInputRef(input);
   }
 
   useEffect(() => {
@@ -72,7 +77,7 @@ const TopicAnswersPage = () => {
             ))}
         </div>
         <div className={`${styles.input_container} ${user?.isLogged ? "" : "hide" }`} >
-          <Input title={"Введите сообщение:"} type="text" getInputValue={setInputValue} isMessage={true}></Input>
+          <Input getInputRef={getInputRef}title={"Введите сообщение:"} type="text" getInputValue={setInputValue} isMessage={true}></Input>
           <button onClick={() => addNewAnswer()}>
             <img src={arrow} alt="" />
           </button>

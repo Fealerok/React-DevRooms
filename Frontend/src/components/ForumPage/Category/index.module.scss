@@ -4,8 +4,7 @@
     width: 100%;
     background-color: white;
     border-radius: 20px;
-    border: 1px solid #CECECE;
-
+    overflow: hidden;
 
     .category_header{
         display: flex;
@@ -22,9 +21,12 @@
         padding-left: 40px;
         padding-right: 40px;
 
+        
+
         .header_content{
             display: flex;
             align-items: center;
+            
             
             gap: 10px;
             & > button{
@@ -72,6 +74,7 @@
     }
 
     .category_content{
+        overflow: hidden;
         .empty_chapter{
             width: 100%;
             height: 80px;
