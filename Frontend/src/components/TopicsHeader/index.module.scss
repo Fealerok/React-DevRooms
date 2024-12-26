@@ -17,28 +17,66 @@
         font-size: 24px;
     }
 
-    & > button{
-        position: relative;
-        width: 40px;
-        height: 40px;
+    .buttons{
+        width: 50%;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        background-color: var(--background-purple);
+        flex-direction: row-reverse;
+        gap: 10px;
+        position: relative;
+        z-index: 1;
 
-        & > div{
+        & > input{
+            width: 40px;
+            height: 40px;
             position: absolute;
-            width: 20px;
-            height: 3px;
-            background-color: white;
+            right: calc(50px - 0px);
+            top: 0;
+            z-index: -1;
+            transition: 0.5s;
+            border: 1px solid #bbbbbb;
+            outline: none;
+            border-radius: 12px;
+            padding-left: 20px;
+            font-size: 12px;
+            color: var(--background-purple)
+
         }
 
-        & > div:nth-child(1){
-            transform: rotate(90deg);
+        & > button{
+            
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background-color: var(--background-purple);
+            
+    
+            & > div{
+                position: absolute;
+                width: 20px;
+                height: 3px;
+                background-color: white;
+            }
+    
+            & > div:nth-child(1){
+                transform: rotate(90deg);
+            }
         }
     }
 
+   
+
+}
+
+.opened{
+    width: calc(100% - 40px) !important;
+}
+
+.closed{
+    width: 40px !important;
 }
