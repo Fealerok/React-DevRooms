@@ -28,7 +28,14 @@ function TopicsHeader({title, setIsCreateWindow, searchInputHandle}){
                         <img src={search_img} alt="" />
                     </button>
 
-                    <input onChange={() => searchInputHandle(inputRef.current.value)} ref={inputRef} type="text" className={isInputOpened ? styles.opened : styles.closed} />
+                    <input  
+                    onChange={() => searchInputHandle(inputRef.current.value)} 
+                    ref={inputRef} 
+                    type="text" 
+                    className={isInputOpened ? styles.opened : styles.closed}
+                    onBlur={() => {
+                        setIsInputOpened(false);
+                    }} />
 
                 </div>
                 
