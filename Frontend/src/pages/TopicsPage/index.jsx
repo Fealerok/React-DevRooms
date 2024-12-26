@@ -5,6 +5,8 @@ import TopicsItem from '../../components/topicsItem';
 import CreateWindow from '../../components/CreateWindow';
 import { AuthContext } from '../../context/authContext';
 
+import EmptyBlock from '../../components/EmptyBlock';
+
 import { useParams} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -13,9 +15,11 @@ function TopicsPage(){
     const {idChapter} = useParams();
 
     const [topicsInChapter, setTopicsInChapter] = useState([]);
+    const [filteredTopics, setFilteredTopics] = useState([]);
     const [nameOfChapter, setNameOfChapter] = useState();
 
     const [isCreateWindow, setIsCreateWindow] = useState(false);
+    const [inputValue, setInputValue] = useState("");
 
     const {user} = useContext(AuthContext);
 
@@ -32,14 +36,13 @@ function TopicsPage(){
           
           setTopicsInChapter(r.topics);
           setNameOfChapter(r.nameOfChapter.name);
-
+          setFilteredTopics(r.topics);
           console.log(r.topics);
         });
     }
 
     useEffect(() => {
       getTopicsInChapter();
-      
     }, []);
 
     const addNewTopic = async (topicName) => {
@@ -58,16 +61,28 @@ function TopicsPage(){
       if (response.ok) getTopicsInChapter();
     }
 
+    const searchInputHandle = (input) => {
 
-    if (topicsInChapter.length !== 0){
+      if (input == "") setFilteredTopics(topicsInChapter);
+      else setFilteredTopics(topicsInChapter.filter(t => t.name.includes(input)));
+    }
+
+
+    if (topicsInChapter?.length !== 0){
         return(
           <>
             <div className={styles.topicsCard}>
-              <TopicsHeader title={nameOfChapter} setIsCreateWindow={setIsCreateWindow}  /> 
+              <TopicsHeader title={nameOfChapter} setIsCreateWindow={setIsCreateWindow} searchInputHandle={searchInputHandle}  /> 
               <div className={styles.topicsContainer}>
-                  {topicsInChapter.map((t, i) => (
+                {
+                  filteredTopics?.length == 0 ?
+                  <EmptyBlock />
+                  : 
+                  filteredTopics?.map((t, i) => (
                     <TopicsItem key={i} title={t.name} topicId={t.id} nicknameCreator={t.nickname} />
-                  ))}
+                  ))
+                }
+   
               </div>
             </div>
 
