@@ -122,6 +122,77 @@ class Database{
                 `
              );
 
+             //Таблица Companies
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Companies(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT NOT NULL,
+                     description TEXT NOT NULL
+                )
+                `
+             );
+
+             //Таблица Specializations
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Specializations(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT NOT NULL UNIQUE
+                )
+                `
+             );
+
+             //Таблица SubSpecializations
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS SubSpecializations(
+                     id SERIAL PRIMARY KEY,
+                     id_specialization int,
+                     name TEXT NOT NULL UNIQUE,
+                     FOREIGN KEY (id_specialization) REFERENCES Specializations(id) ON DELETE CASCADE
+                )
+                `
+             );
+
+             //Таблица Qualifications
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Qualifications(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT NOT NULL UNIQUE
+                )
+                `
+             );
+
+             //Таблица TypesOfEmployemnt
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS TypesOfEmployment(
+                     id SERIAL PRIMARY KEY,
+                     name TEXT NOT NULL UNIQUE
+                )
+                `
+             );
+
+             //Таблица Vacancies
+             await this.db.query(
+                `
+                CREATE TABLE IF NOT EXISTS Vacancies(
+                     id SERIAL PRIMARY KEY,
+                     name_company TEXT,
+                     name_vacancy TEXT,
+                     id_qualification int,
+                     specializations TEXT,
+                     salary TEXT,
+                     location TEXT,
+                     id_typeOfEmployment int,
+                     description TEXT,
+                     phone TEXT
+                )
+                `
+             );
+
              //Добавление ролей
              await this.db.query(
                 `
@@ -140,6 +211,58 @@ class Database{
                 `
                 INSERT INTO UsersData ("login", "password") VALUES ('Fealer', '${await bcrypt.hash("admin1", salt)}') ON CONFLICT ("login") DO NOTHING;
                 INSERT INTO UsersData ("login", "password") VALUES ('Rimirana', '${await bcrypt.hash("admin2", salt)}') ON CONFLICT ("login") DO NOTHING;
+                `
+             );
+
+             //Добавление специализаций
+             await this.db.query(
+                `
+                INSERT INTO Specializations ("name") VALUES ('Разработка') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO Specializations ("name") VALUES ('Дизайн') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO Specializations ("name") VALUES ('Тестирование') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO Specializations ("name") VALUES ('Безопасность') ON CONFLICT ("name") DO NOTHING;
+                `
+             );
+
+             //Добавление квалификаций
+             await this.db.query(
+                `
+                INSERT INTO Qualifications ("name") VALUES ('Junior') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO Qualifications ("name") VALUES ('Middle') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO Qualifications ("name") VALUES ('Senior') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO Qualifications ("name") VALUES ('TeamLead') ON CONFLICT ("name") DO NOTHING;
+                `
+             );
+
+             //Добавление типов занятсти
+             await this.db.query(
+                `
+                INSERT INTO TypesOfEmployment ("name") VALUES ('Полная занятость') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO TypesOfEmployment ("name") VALUES ('Частичная занятость') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO TypesOfEmployment ("name") VALUES ('Удаленная работа') ON CONFLICT ("name") DO NOTHING;
+                `
+             );
+
+             //Добавление подспециализаций
+             await this.db.query(
+                `
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Разработка'), 'Разработчик ПО') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Разработка'), 'Фронтенд разработчик') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Разработка'), 'Бэкенд разработчик') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Разработка'), 'Разработчик игр') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Разработка'), 'Разработчик баз данных') ON CONFLICT ("name") DO NOTHING;
+                
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Дизайн'), 'Веб дизайнер') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Дизайн'), 'Дизайнер ПО') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Дизайн'), 'Дизайнер игр') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Дизайн'), '3d-аниматор') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Дизайн'), '3d-моделлер') ON CONFLICT ("name") DO NOTHING;
+                
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Тестирование'), 'UX-тестировщик') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Тестирование'), 'Автоматическое тестирование') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Тестирование'), 'Ручное тестирование') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Тестирование'), 'Обеспечение качества') ON CONFLICT ("name") DO NOTHING;
+                INSERT INTO SubSpecializations ("id_specialization", "name") VALUES ((SELECT id FROM Specializations WHERE name='Тестирование'), 'Инженер по производительности') ON CONFLICT ("name") DO NOTHING;
                 `
              );
 
@@ -170,9 +293,6 @@ class Database{
                 
                 `
              );
-
-
-
 
         } catch (e) {
             console.log(`Ошибка createTables: ${e}`);
@@ -575,6 +695,125 @@ class Database{
         } catch (error) {
             console.log(`Ошибка удаления раздела в бд: ${error}`);
             
+        }
+    }
+
+    createCompany = async (nameCompany, descriprionCompany) => {
+        try {
+            console.log(nameCompany);
+            await this.db.query(`INSERT INTO Companies ("name", "description") VALUES ($1, $2)`, [nameCompany, descriprionCompany]);
+        } catch (error) {
+            console.log(`Ошибка создания компании в бд: ${error}`);
+            
+        }
+    }
+
+    getCompanies = async () => {
+        try {
+            const companies = (await this.db.query("SELECT * FROM Companies")).rows;
+
+            console.log(companies)
+            return companies;
+        } catch (error) {
+            console.log(`Ошибка получения компаний в бд: ${error}`);
+            
+        }
+    }
+
+    deleteCompany = async (idCompany) => {
+        try {
+            await this.db.query("DELETE FROM Companies WHERE id=$1", [idCompany]);
+        } catch (error) {
+            console.log(`Ошибка удаления компании в бд: ${error}`);
+            
+        }
+    }
+
+    getQualifications = async () => {
+        try {
+            const qualifications = (await this.db.query("SELECT * FROM Qualifications")).rows;
+
+            return qualifications;
+        } catch (error) {
+            console.log(`Ошибка получения квалификаций в БД: ${error}`);
+            
+        }
+    }
+
+    getTypesOfEmployment = async () => {
+        try {
+            const typesOfEmployment = (await this.db.query("SELECT * FROM TypesOfEmployment")).rows;
+
+            return typesOfEmployment;
+        } catch (error) {
+            console.log(`Ошибка получения типов занятости в БД: ${error}`);
+            
+        }
+    }
+
+    getSpecializations = async () => {
+        try {
+            const specializations = (await this.db.query(`SELECT s.id as s_id, s.name as s_name, sub.id as sub_id, sub.name as sub_name FROM Specializations s JOIN SubSpecializations sub ON s.id = sub.id_specialization`)).rows;
+            return specializations;
+        } catch (error) {
+            console.log(`Ошибка получения специализаций в БД: ${error}`);
+            
+        }
+    }
+
+    addVacancy = async (createdVacancy) => {
+        try {
+           await this.db.query(`INSERT INTO Vacancies("name_company", "name_vacancy", "id_qualification", "specializations", "salary", "location", "id_typeofemployment", "description", "phone") 
+                                VALUES ($1, $2, (SELECT id FROM Qualifications WHERE name=$3), $4, $5, $6, (SELECT id FROM TypesOfEmployment WHERE name=$7), $8, $9)`, [
+                                    createdVacancy.selectedCompany,
+                                    createdVacancy.selectedName,
+                                    createdVacancy.selectedQualification,
+                                    createdVacancy.selectedSubspecializations,
+                                    createdVacancy.selectedSalary,
+                                    createdVacancy.selectedLocation,
+                                    createdVacancy.selectedTypeOfEmployment,
+                                    createdVacancy.description,
+                                    createdVacancy.phone
+                                ]);
+        } catch (error) {
+            console.log(`Ошибка добавления вакансии в БД: ${error}`);
+            
+        }
+    }
+    
+    getVacancies = async () => {
+        try {
+            const vacancies = (await this.db.query(`SELECT v.id as id, v.name_company, v.name_vacancy, q.name as name_qualification, v.specializations, v.salary, v.location, t.name as name_typeOfEmployment, v.description, v.phone FROM Vacancies v
+                                                    JOIN Qualifications q ON q.id = v.id_qualification
+                                                    JOIN TypesOfEmployment t ON t.id = v.id_typeofemployment`)).rows;
+
+            return vacancies;
+        } catch (error) {
+            console.log(`Ошибка получения вакансий в БД: ${error}`);
+            
+        }
+    }
+
+    deleteVacancy = async (id) => {
+        try {
+           await this.db.query("DELETE FROM Vacancies WHERE id=$1", [id]);
+        } catch (error) {
+            console.log(`Ошибка удаления вакансии в БД: ${error}`);
+            
+        }
+    }
+
+    getVacancyInfo = async(id) => {
+        try {
+            const vacancyInfo = (await this.db.query(`SELECT v.id as id, v.name_company, v.name_vacancy, q.name as name_qualification, v.specializations, v.salary, v.location, t.name as name_typeOfEmployment, v.description, v.phone, c.description as description_company FROM Vacancies v
+                JOIN Qualifications q ON q.id = v.id_qualification
+                JOIN TypesOfEmployment t ON t.id = v.id_typeofemployment
+                JOIN Companies c ON c.name = v.name_company
+                WHERE v.id = $1`, [id])).rows[0];
+
+        return vacancyInfo;
+        } catch (error) {
+            console.log(`Ошибка получения информации вакансии в БД: ${error}`);
         }
     }
     

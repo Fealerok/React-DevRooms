@@ -9,6 +9,9 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/authContext";
 import TopicsPage from "./pages/TopicsPage";
 import TopicAnswersPage from "./pages/TopicAnswersPage";
+import JobsPage from "./pages/JobsPage";
+import CompanyPage from "./pages/CompanyPage";
+import VacancyInfo from "./pages/VacancyInfo";
 
 
 function App() {
@@ -33,7 +36,9 @@ function App() {
           <Route path="/topics" element={<TopicsPage />}></Route>
           <Route path="/chapter/:idChapter" element={<TopicsPage />}></Route>
           <Route path="/topic/:idTopic" element={<TopicAnswersPage />}></Route>
-
+          <Route path="/jobs" element={<JobsPage />}></Route>
+          <Route path="/jobs/company" element={<CompanyPage />} ></Route>
+          <Route path="/jobs/:idVacancy" element={<VacancyInfo />}></Route>
         
         </Routes>
 

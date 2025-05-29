@@ -330,5 +330,149 @@ router.post("/delete-category", async(req, res) => {
     }
 });
 
+router.post("/add-company", async (req, res) => {
+    try {
+        const {nameCompany, descriptionCompany} = req.body;
+
+        await db.createCompany(nameCompany, descriptionCompany);
+
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка создания компании: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.get("/get-companies", async (req, res) => {
+    try {
+        const companies = await db.getCompanies();
+        return res.status(200).json({companies});
+    } catch (error) {
+        console.log(`Ошибка получения компаний в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.post("/delete-company", async (req, res) => {
+    try {
+        const {idCompany} = req.body;
+
+        console.log(idCompany);
+
+        await db.deleteCompany(idCompany);
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка удаления компании в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.get("/get-qualifications", async (req, res) => {
+    try {
+        const qualifications = await db.getQualifications();
+        return res.status(200).json({qualifications});
+    } catch (error) {
+        console.log(`ОШибка получения квалификаций в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.get("/get-types-of-employment", async (req, res) => {
+    try {
+        const typesOfEmployment = await db.getTypesOfEmployment();
+        return res.status(200).json({typesOfEmployment});
+    } catch (error) {
+        console.log(`ОШибка получения типов занятости в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.get('/get-specializations', async (req, res) => {
+    try {
+        const specialization = await db.getSpecializations();
+
+        let nestedData = [];
+        let currentSpec = null;
+
+        specialization.forEach(row => {
+            if (!currentSpec || currentSpec.id !== row.s_id){
+                currentSpec = {
+                    id: row.s_id,
+                    name: row.s_name,
+                    subspecializations: []
+                },
+
+                nestedData.push(currentSpec);
+
+            }
+
+            if (row.sub_id){
+                currentSpec.subspecializations.push({
+                    id: row.sub_id,
+                    name: row.sub_name,
+                    isChose: false,
+                });
+            }
+        });
+
+        console.log(nestedData);
+
+        
+        return res.status(200).json({nestedData});
+    } catch (error) {
+        console.log(`Ошибка получения специализаций в роуте: ${error}`);
+        return res.status(500).json();
+    }
+});
+
+router.post("/add-vacancy", async (req, res) => {
+    try {
+        const {createdVacancy} = req.body;
+
+        await db.addVacancy(createdVacancy);
+
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка создания вакансии в роуте`);
+        return res.status(500).json();
+        
+    }
+});
+
+router.get("/get-vacancies", async (req, res) => {
+    try {
+        const vacancies = await db.getVacancies();
+
+        return res.status(200).json({vacancies});
+    } catch (error) {
+        console.log(`Ошибка получения вакансий в роуте: ${error}`);
+        return res.status(500).json();
+    }
+})
+
+router.post("/delete-vacancy", async (req, res) => {
+    try {
+        const {id} = req.body;
+
+        await db.deleteVacancy(id);
+        return res.status(200).json();
+    } catch (error) {
+        console.log(`Ошибка удаления вакансии в роуте: ${error}`);
+        return res.status(500).json();
+    }
+})
+
+router.post("/get-vacancy-info", async (req, res) => {
+    try {
+        const {id} = req.body;
+
+        const vacancyInfo = await db.getVacancyInfo(id);
+
+        return res.status(200).json({vacancyInfo});
+    } catch (error) {
+        console.log(`Ошибка получения информации вакансии в роуте: ${error}`);
+        return res.status(500).json();
+    }
+} )
 
 module.exports = router;

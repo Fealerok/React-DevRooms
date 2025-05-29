@@ -48,48 +48,32 @@ const ForumPageContent = () => {
   const deleteCategoryHandle = () => getCategories();
 
 
-  if (categories) {
-    return (
-      <>
+  return (
+    <>
 
-          <div className={styles.forum_page_content}>
-            <div className={styles.categories}>
-      
-              <div className={styles.container}>
-                {categories.map((cat, i) => (
-                    <Category key={i} header={cat.name} deleteCategoryHandle = {deleteCategoryHandle} />
-                ))}
-              </div>
-
-              <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>Новая категория</button>
-            </div>
-      
-            <Statistic />
-
-            
-          </div>
-
-          <CreateWindow title={"категории"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewCategory}/>
-      </>
-    )
-  }
-
-  else{
-    return (
-      <>
         <div className={styles.forum_page_content}>
           <div className={styles.categories}>
+    
+          {categories ?
+            <div className={styles.container}>
+              {categories.map((cat, i) => (
+                <Category key={i} header={cat.name} deleteCategoryHandle={deleteCategoryHandle} />
+              ))}
+            </div> 
+            : null}
+            
+
             <button onClick={() => setIsCreateWindow(true)} className={user?.role == "Администратор" ? "" : "hide" }>Новая категория</button>
           </div>
     
           <Statistic />
+
+          
         </div>
 
         <CreateWindow title={"категории"} display={isCreateWindow} setDisplay={setIsCreateWindow} addNew={addNewCategory}/>
-      </>
-      
-    )
-  }
+    </>
+  )
 
 
 }

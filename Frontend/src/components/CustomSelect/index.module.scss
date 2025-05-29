@@ -1,0 +1,18 @@
+.custom_select{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    
+
+    select{
+        height: 32px;
+        color: #64616B;
+        font-size: 11px;
+        background-color: #F1EDED;
+        border-radius: 5px;
+        border: 2px solid #CECECE;
+        padding: 0px 15px 0px 15px;
+        cursor: pointer;
+    }
+}

@@ -47,6 +47,8 @@ const Header = () => {
                     <Link to={"/auth"} className={styles.link} style={linkStyles}>Профиль</Link> : 
                     <Link reloadDocument to={`/profile/${user.login}`} className={styles.link} style={linkStyles}>Профиль</Link>
                   }
+
+                  <Link to="/jobs" reloadDocument className={styles.link} style={linkStyles}>Вакансии</Link>
               </div>
             </div>
 

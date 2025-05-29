@@ -1,0 +1,45 @@
+.company_item{
+    width: 100%;
+    min-height: 130px;
+    background-color: white;
+
+    border-radius: 25px;
+    border: 2px solid #CECECE;
+    display: flex;
+    justify-content: space-between;
+     padding: 20px 30px;
+
+    & > button{
+        width: 40px;
+        height: 40px;
+        align-self: flex-end;
+
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        transition: 0.2s;
+        &:hover{
+            transform: scale(1.1, 1.1);
+        }
+    }
+
+    .company_item_text{
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        word-spacing: 5px;
+        gap: 10px;
+
+        max-width: 80%;
+        text-wrap: wrap;
+        flex-wrap: wrap;
+        line-height: 20px;
+
+        & > span:first-child{
+            color: #6B5798;
+            font-size: 20px;
+        }
+
+    }
+}

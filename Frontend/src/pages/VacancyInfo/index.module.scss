@@ -1,0 +1,135 @@
+.vacancy_info{
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+
+
+    .info_container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 200px;
+        margin-bottom: 60px;
+            gap: 25px;
+
+            .contacts{
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+                width: 100%;
+                background-color: white;
+                border-radius: 25px;
+            border: 2px solid #CECECE;
+
+            padding: 30px 36px;
+
+            & > span{
+                color: #222221;
+                font-size: 16px;
+            }
+
+            & > header{
+                color: #6B5798;
+                font-size: 24px;
+            }
+            }
+        
+            .description {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                min-height: 200px;
+                background-color: white;
+                border-radius: 25px;
+            border: 2px solid #CECECE;
+
+            & > header{
+                height: 60px;
+                display: flex;
+                
+                align-items: center;
+                color: #3C3B3B;
+                font-size: 20px;
+                padding-left: 50px;
+
+                border-bottom: 2px solid #CECECE;
+            }
+
+            & > span{
+                padding: 15px 50px;
+                color: #64616B;
+            }
+
+
+            }
+
+        .info{
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            padding: 36px 50px;
+
+            background-color: white;
+            border-radius: 25px;
+            border: 2px solid #CECECE;
+
+            & > header{
+                color: #47454D;
+                font-size: 35px;
+
+            }
+
+
+            & > div{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                & > span:first-child{
+                    color: #64616B;
+                    font-size: 14px;
+                }
+
+                & > span:nth-child(2){
+                    color: #3C3B3B;
+                    font-size: 14px;
+                }
+            }
+
+            .salary > span:nth-child(2){
+                color: #217136;
+            }
+        }
+
+        
+
+    }
+
+
+    .company_info_container{
+
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 350px;
+        min-height: 400px;
+        height: 100px;
+        background-color: white;
+        border-radius: 25px;
+            border: 2px solid #CECECE;
+
+            & > header{
+                color: #3C3B3B;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            & > span{
+                color: #64616B;
+                font-size: 11px;
+                text-align: center;
+            }
+    }
+}

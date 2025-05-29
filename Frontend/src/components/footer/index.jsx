@@ -3,7 +3,7 @@ import styles from "./index.module.scss"
 
 const Footer = () => {
   return (
-    <div className={styles.footer}>Developed by Fealer, Rimirana, Bosko</div>
+    <div className={styles.footer}>Developed in 2025</div>
   )
 }
 

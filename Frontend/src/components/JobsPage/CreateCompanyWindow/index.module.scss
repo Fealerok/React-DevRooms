@@ -1,0 +1,98 @@
+.create_company_window{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 50%;
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    min-width: 500px;
+    max-width: 900px;
+    background-color: white;
+
+    border-radius: 25px;
+    border: 3px solid #CECDCD;
+    display: block !important;
+    margin-bottom: 80px;
+
+    .buttons{
+        display: flex;
+        justify-content: center;
+        gap: 150px;
+
+        margin-top: 30px;
+        & > button{
+            min-width: 217px;
+            height: 40px;
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #6B5798;
+            border: 3px solid #5E4C86;
+            border-radius: 12px;
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+        
+    }
+
+    & > header{
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        color: #6B5798;
+        border-bottom: 3px solid #CECDCD;
+    }
+
+    .inputs{
+        display: flex;
+        flex-direction: column;
+        padding-left: 32px;
+        padding-right: 32px;
+        margin-top: 42px;
+        gap: 42px;
+
+        & > div{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            & > input{
+                height: 40px;
+                outline: none;
+                background-color: #F1EDED;
+                border: 2px solid #CECECE;
+                border-radius: 12px;
+                padding-left: 15px;
+                padding-left: 15px;
+            }
+
+            & > textarea{
+                background-color: #F1EDED;
+                outline: none;
+                border: 2px solid #CECECE;
+                border-radius: 12px;
+                padding: 15px;
+                line-height: 25px;
+                max-height: 250px;
+                min-height: 250px;
+                resize: none;
+            }
+
+            & > span{
+                color: #64616B;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.none{
+    display: none !important;
+}
