@@ -4,13 +4,22 @@ import Input from '../../Input'
 import search_img from "../../../assets/images/TopicsPage/search.png";
 
 const SearchWidget = ({
-  foundedVacanciesCount
+  foundedVacanciesCount,
+  setSortType,
+  searchFunc
 }) => {
 
   const [sortSelectValue, setSortSelectValue] = useState("Сортировка:");
-  
+  const [searchValue, setSearchValue] = useState();
 
-  const selectValueChangeHandle = (e) => setSortSelectValue(e.target.value);
+  const selectValueChangeHandle = (e) => {
+    setSortSelectValue(e.target.value);
+    setSortType(e.target.value);
+  }
+
+  const searchButtonClick = () => {
+    searchFunc(searchValue);
+  }
 
   return (
     <div className={styles.search_widget}> 
@@ -18,8 +27,8 @@ const SearchWidget = ({
 
         <div className={styles.widget_content}>
             <div className={styles.search}>
-                <input type="text" placeholder='Поиск' />
-                  <button>
+                <input type="text" placeholder='Поиск' onChange={(e) => setSearchValue(e.target.value)} />
+                  <button onClick={searchButtonClick}>
                       <img src={search_img} alt="" />
                   </button>
             </div>

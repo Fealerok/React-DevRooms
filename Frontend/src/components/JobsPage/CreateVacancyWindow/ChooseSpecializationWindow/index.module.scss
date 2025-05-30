@@ -1,16 +1,26 @@
 .choose_specialization_window{
     width: 100%;
     height: 100%;
+
+    max-width: 1000px;
+    max-height: 700px;
     background-color: white;
 
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     right: 0;
     bottom: 0;
 
     display: flex !important;
     flex-direction: column;
+
+    border-radius: 25px;
+
+   transform: translate(-50%, -50%);
+
+    border: 3px solid #CECECE;
+    overflow: hidden;
 
     & > header{
         display: flex;

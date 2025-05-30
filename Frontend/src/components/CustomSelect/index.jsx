@@ -5,11 +5,15 @@ const CustomSelect = ({
     header,
     options,
     isCreateWindow,
-    selectedDisabledOption
+    selectedDisabledOption,
+    setValue
 }) => {
     const [selectValue, setSelectValue] = useState(selectedDisabledOption);
 
-    const changeSelectValueHandle = (e) => setSelectValue(e.target.value);
+    const changeSelectValueHandle = (e) => {
+        setSelectValue(e.target.value);
+        setValue(e.target.value);
+    }
 
     const stylesSelect = {
         color: isCreateWindow ? "#64616B" : "#6B5798",

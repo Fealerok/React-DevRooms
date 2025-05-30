@@ -6,6 +6,7 @@ import Vacancy from '../../components/JobsPage/Vacancy'
 import { AuthContext } from '../../context/authContext'
 import CreateVacancyWindow from '../../components/JobsPage/CreateVacancyWindow'
 import { useNavigate } from 'react-router-dom'
+import ChooseSpecializationWindow from '../../components/JobsPage/CreateVacancyWindow/ChooseSpecializationWindow'
 
 
 const JobsPage = () => {
@@ -16,6 +17,16 @@ const JobsPage = () => {
 
   const [allVacancies, setAllVacancies] = useState([]);
   const [filteredVacancies, setFilteredVacancies] = useState([]);
+
+  const [sortType, setSortType] = useState("");
+
+  const [selectedSpecializations, setSelectedSpecializations] = useState("");
+  const [selectedQualification, setSelectedQualification] = useState("");
+  const [selectedSalary, setSelectedSalary] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedTypeOfEmployment, setSelectedTypeOfEmployment] = useState("");
+
+  const [isChooseSpecializations, setIsChooseSpecializations] = useState(false);
 
   const [vacanciesCount, setVacanciesCount] = useState(0);
   const navigator = useNavigate();
@@ -36,9 +47,80 @@ const JobsPage = () => {
     setFilteredVacancies(vacancies);
   }
 
+  const applySort = () => {
+    if (sortType == "По возрастанию ЗП"){
+      const sorted = [...filteredVacancies].sort((a, b) => Number(b.salary) - Number(a.salary));
+      setFilteredVacancies(sorted);
+      return;
+    }
+
+    if (sortType == "По убыванию ЗП"){
+      const sorted = [...filteredVacancies].sort((a, b) => Number(a.salary) - Number(b.salary));
+      setFilteredVacancies(sorted);
+      return;
+    }
+  }
+
+  const applyFilters = () => {
+    const filtered = allVacancies.filter(vacancy => {
+      // Проверка квалификации (если фильтр задан)
+      const qualificationMatch = selectedQualification === "" || 
+                               vacancy.name_qualification === selectedQualification;
+      
+      // Проверка зарплаты (если фильтр задан)
+      const salaryMatch = selectedSalary === "" || 
+                         Number(vacancy.salary) >= Number(selectedSalary);
+      
+      // Проверка местоположения (если фильтр задан)
+      const locationMatch = selectedLocation === "" || 
+                           vacancy.location === selectedLocation;
+      
+      // Проверка типа занятости (если фильтр задан)
+      const employmentMatch = selectedTypeOfEmployment === "" || 
+                            vacancy.name_typeofemployment === selectedTypeOfEmployment;
+      
+       // 1. Разбиваем выбранные специализации на массив
+    const selectedSpecsArray = selectedSpecializations
+    .split(', ')
+    .map(spec => spec.trim());
+  
+  // 2. Проверяем, есть ли у вакансии хотя бы одна из выбранных специализаций
+  const specializationPass = selectedSpecializations === "" || 
+    (vacancy.specializations && 
+     selectedSpecsArray.some(selectedSpec => 
+       vacancy.specializations.includes(selectedSpec)
+     ));
+  
+      // Все условия должны выполняться одновременно
+      return qualificationMatch && salaryMatch && locationMatch && 
+             employmentMatch && specializationPass;
+    });
+  
+    setFilteredVacancies(filtered);
+  };
+
+  const searchHandle = (searchValue) => {
+
+    if (!searchValue || searchValue == ""){
+      setFilteredVacancies(allVacancies);
+      return
+    }
+    
+    const filtered = filteredVacancies.filter(v => v.name_company.includes(searchValue) || 
+                                                    v.name_vacancy.includes(searchValue) ||
+                                                    v.name_typeofemployment.includes(searchValue) || 
+                                                    v.name_qualification.includes(searchValue) ||
+                                                    v.specializations.includes(searchValue) ||
+                                                    v.salary.includes(searchValue) ||
+                                                    v.location.includes(searchValue))
+
+    setFilteredVacancies(filtered);
+  };
+
   useEffect(() => {
     getVacancies();
   }, []);
+
   
 
   useEffect(() => {
@@ -50,10 +132,14 @@ const JobsPage = () => {
     console.log(isCreateVacancy);
   }, [isCreateVacancy]);
 
+  useEffect(() => {
+   applySort();
+  }, [sortType]);
+
   return (
     <div className={styles.jobs_page}>
       <div className={styles.jobs_page_content}>
-        <SearchWidget foundedVacanciesCount={vacanciesCount} />
+        <SearchWidget searchFunc={searchHandle} setSortType={setSortType} foundedVacanciesCount={vacanciesCount} />
         <div className={styles.vacancy_list}>
           {filteredVacancies.map(v => (
             <Vacancy key={v.id}
@@ -75,12 +161,21 @@ const JobsPage = () => {
             navigator("/jobs/company");
           }} className={user?.role == "Администратор" ? "" : "hide"}>Компании</button>
         </div>
-        
+
       </div>
 
-      <FilterWidget />
+      <FilterWidget
+      setSelectedSpecializations={setSelectedSpecializations}
+      setSelectedQualification={setSelectedQualification}
+      setSelectedSalary={setSelectedSalary}
+      setSelectedLocation={setSelectedLocation}
+      setSelectedTypeOfEmployment={setSelectedTypeOfEmployment}
+      setIsChooseSpecializations={setIsChooseSpecializations}
+      specializations={selectedSpecializations}
+      applyFilters={applyFilters} />
 
       <CreateVacancyWindow isCreateVacancy={isCreateVacancy} setIsCreateVacancy={setIsCreateVacancy}></CreateVacancyWindow>
+      <ChooseSpecializationWindow isChooseSpecialization={isChooseSpecializations} setIsChooseSpecialization={setIsChooseSpecializations} setSelectedSubspecialization={setSelectedSpecializations} />
     </div>
   )
 }
