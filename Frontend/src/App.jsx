@@ -22,7 +22,6 @@ function App() {
     console.log(user);
   }, []);
 
-  
   return (
     <div className={styles.app}>
       <Header />

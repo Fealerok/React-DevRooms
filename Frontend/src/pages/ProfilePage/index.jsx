@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import styles from "./index.module.scss";
 import avatar_image from "../../assets/images/ProfilePage/avatar.jpg";
 
-import HeaderLoginPage from '../../components/LoginPage/Header';
 import SkillItem from '../../components/ProfilePage/SkillItem';
 import UserTopics from '../../components/ProfilePage/UserTopics';
 import { AuthContext } from '../../context/authContext';
@@ -116,8 +115,6 @@ function ProfilePage() {
                                 {Object.keys(profileStatistic.skills).map((key, i) => (
                                     <SkillItem changeProfileSkills={changeProfileSkills} key={i} image={imagesSkills[i]} title={key} level={profileStatistic.skills[key]} isEdit={isEdit}></SkillItem>
                                 ))}
-
-
                                    
              
                             </div>

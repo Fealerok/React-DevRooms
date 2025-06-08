@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./index.module.scss"
 
-import location from "../../assets/images/location.png";
 import { useParams } from 'react-router-dom';
 
 const VacancyInfo = () => {
